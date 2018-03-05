@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= title %></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/stylesheets/style1.css"/>
+<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="/stylesheets/dataTables.bootstrap.min.css"/>
+<link rel="stylesheet" href="/stylesheets/whhg.css"/>
+<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="/vendor/jquery.form.min.js"></script>
+<script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="/javascripts/datatables.min.js"></script>
+</head>
+<body class="mybody">
+<nav id="navv" class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/main">Cloud Office</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="news">最新資訊</a></li>
+        <li><a href="vmstatus">開啟/關閉虛擬機</a></li>
+        <% if(user.level<2) { %>
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">環境管理<span class="caret"></span></a>
+	  <ul class="dropdown-menu">
+            <li><a href="department_show">環境資訊</a></li>
+            <li><a href="department">環境管理</a></li>
+            <li role="presentation" class="divider"></li>
+	    <li class="dropdown-header">環境建置</li> 
+	    <li><a href="original_add">新增環境硬碟</a></li>
+            <li><a href="original_copy">新增複製硬碟</a></li>
+          </ul>
+	</li>
+	<% } %>
+        <% if(user.level<2) { %>
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">員工管理<span class="caret"></span></a>
+	  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <% if(user.level==0) { %><li><a href="user_verify">員工審核</a></li><% } %>
+            <% if(user.level==0) { %><li><a href="register">員工新增</a></li><% } %>
+    	    <% if(user.level==0) { %><li><a href="user">員工資訊查看/管理</a></li><% } %>
+            <% if(user.level<2) { %><li><a href="hd_create">員工環境建置</a></li><% } %>
+            <% if(user.level<2) { %><li><a href="hd_info">員工環境管理</a></li><% } %>
+          </ul>
+	</li>
+	<% if(user.level==0) { %>
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">系統狀態<span class="caret"></span></a>
+	  <ul class="dropdown-menu">
+	    <li><a href="system_control">系統控制</a></li>
+	    <li><a href="system">系統資訊</a></li>
+	    <li><a href="traffic_reports">流量報表</a></li>
+	  </ul>
+	</li>
+	<% } %>
+	<% } %>
+        <li><a href="userprofile">個人資料</a></li>
+	<li><a href="download">軟體下載</a></li>
+	<% if(user.level==2) { %><li><a href="comment">用戶使用說明</a></li><% } %>
+	<% if(user.level<2) { %><li><a href="comment_manager">主管使用說明</a></li><% } %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="userprofile"><span class="glyphicon glyphicon-user"></span><%= user.name %></a></li>
+        <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+      </ul>
+    </div>
+  </div> 
+</nav>

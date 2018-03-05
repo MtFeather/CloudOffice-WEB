@@ -1,0 +1,245 @@
+.mybody {
+  font-family:'Arial','微軟正黑體';
+  padding-bottom: 20px;
+}
+
+.err {
+  background: url(../images/404.png) 5px no-repeat;
+  background-size: 230px 210px;
+  margin: 7% auto 0;
+  max-width: 700px;
+  min-height: 230px;
+  padding: 15px 0 15px 230px;
+}
+
+@media screen and (max-width: 772px){
+  .err {
+    background: none;
+    margin-top: 0;
+    max-width: none;
+    padding-left: 30px;
+  }
+}
+
+.err h1,h2 {
+  margin: 11px 0 22px;
+  overflow: hidden;
+}
+
+.openNav {
+    height: 48px;
+    position: fixed;
+    z-index: 99999;
+    top: 50%;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    color: white;
+    transition: 0.5s;
+    padding: 0 5px 0 5px;
+}
+
+.openNav:hover {
+   padding-left: 10px; 
+}
+.openChat {
+    height: 30px;
+    position: fixed;
+    z-index: 99999;
+    top: 58%;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    color: white;
+    transition: 0.5s;
+    padding: 5px 5px 0 8px;
+}
+
+.openChat:hover {
+   padding-left: 10px;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: #ffffff;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.overlay label {
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.overlay label:hover, .overlay label:focus {
+    color: #337ab7;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay label {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}
+
+.center-vertical form {
+  border:0px;
+  background:#FFF;
+  //box-shadow:0px 0px 5px rgba(20%,20%,40%,0.5);
+  top: 80%;
+  margin: auto;
+  position: relative;
+  -webkit-transform: translateY(45%);
+  -ms-transform: translateY(45%);
+  transform: translateY(45%);
+}
+::-moz-selection { /* Code for Firefox */
+    color: yellow;
+    background: black;
+}
+
+::selection {
+    color: yellow;
+    background: black;
+}
+footer a{
+color: gray;
+}
+footer a:hover{
+color: pink;
+text-decoration:none;
+}
+#index_news:hover{
+background-color:lightgray;
+
+}
+#index_news a:hover{
+color:yellow;
+}
+
+#loading {
+    background: #f4f4f2;
+    height: 100%;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: none;
+    z-index: 9999;
+}
+.bokeh {
+    border: 0.01em solid rgba(150, 150, 150, 0.1);
+    border-radius: 50%;
+    font-size: 100px;
+    height: 1em;
+    list-style: outside none none;
+    margin: 0 auto;
+    position: relative;
+    top: 35%;
+    width: 1em;
+    z-index: 2147483647;
+}
+.bokeh li {
+    border-radius: 50%;
+    height: 0.2em;
+    position: absolute;
+    width: 0.2em;
+}
+.bokeh li:nth-child(1) {
+    animation: 1.13s linear 0s normal none infinite running rota, 3.67s ease-in-out 0s alternate none infinite running opa;
+    background: #00c176 none repeat scroll 0 0;
+    left: 50%;
+    margin: 0 0 0 -0.1em;
+    top: 0;
+    transform-origin: 50% 250% 0;
+}
+.bokeh li:nth-child(2) {
+    animation: 1.86s linear 0s normal none infinite running rota, 4.29s ease-in-out 0s alternate none infinite running opa;
+    background: #ff003c none repeat scroll 0 0;
+    margin: -0.1em 0 0;
+    right: 0;
+    top: 50%;
+    transform-origin: -150% 50% 0;
+}
+.bokeh li:nth-child(3) {
+    animation: 1.45s linear 0s normal none infinite running rota, 5.12s ease-in-out 0s alternate none infinite running opa;
+    background: #fabe28 none repeat scroll 0 0;
+    bottom: 0;
+    left: 50%;
+    margin: 0 0 0 -0.1em;
+    transform-origin: 50% -150% 0;
+}
+.bokeh li:nth-child(4) {
+    animation: 1.72s linear 0s normal none infinite running rota, 5.25s ease-in-out 0s alternate none infinite running opa;
+    background: #88c100 none repeat scroll 0 0;
+    margin: -0.1em 0 0;
+    top: 50%;
+    transform-origin: 250% 50% 0;
+}
+@keyframes opa {
+12% {
+    opacity: 0.8;
+}
+19.5% {
+    opacity: 0.88;
+}
+37.2% {
+    opacity: 0.64;
+}
+40.5% {
+    opacity: 0.52;
+}
+52.7% {
+    opacity: 0.69;
+}
+60.2% {
+    opacity: 0.6;
+}
+66.6% {
+    opacity: 0.52;
+}
+70% {
+    opacity: 0.63;
+}
+79.9% {
+    opacity: 0.6;
+}
+84.2% {
+    opacity: 0.75;
+}
+91% {
+    opacity: 0.87;
+}
+}
+
+@keyframes rota {
+100% {
+    transform: rotate(360deg);
+}
+}
+
+}

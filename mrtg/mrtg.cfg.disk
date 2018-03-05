@@ -1,0 +1,12 @@
+WorkDir:/srv/cloudoffice/www/public/mrtg
+Language:utf8
+Target[disk]:`/srv/cloudoffice/mrtg/mrtg.disk`
+MaxBytes[disk]: 125000000
+Title[disk]: disk_status
+PageTop[disk]: <H1>硬碟讀寫統計表</H1>
+Options[disk]: growright,nopercent,gauge,integer
+YLegend[disk]: Byte per second
+ShortLegend[disk]:kByte
+LegendI[disk]: 讀出:
+LegendO[disk]: 寫入:
+

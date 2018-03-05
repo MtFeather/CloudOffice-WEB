@@ -1,0 +1,25 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "ejs": "~2.4.1",
+    "emailjs": "^1.0.8",
+    "express": "~4.13.4",
+    "express-session": "^1.14.1",
+    "helmet": "^2.3.0",
+    "moment": "^2.15.2",
+    "morgan": "~1.7.0",
+    "mysql": "^2.11.1",
+    "node-uuid": "^1.4.7",
+    "random-mac": "0.0.4",
+    "serve-favicon": "~2.3.0",
+    "systeminformation": "^3.13.0"
+  }
+}

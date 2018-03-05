@@ -1,0 +1,16 @@
+#!/bin/bash
+LANG=C
+cpu_cut=$( sar -u | grep -v '平均時間' | tail -n 1 | awk '{print $6,$8}' )
+cpu_io=$( echo ${cpu_cut} | awk '{print $1}' )
+cpu_idle=$( echo ${cpu_cut} | awk '{print $2}' )
+cpu_used=$( echo "scale=2;100-${cpu_idle}" | bc )
+#check_a=$(echo $cpu_used | cut -d '.' -f1)
+#if [ "$check_a" == "" ]; then
+#	cpu_used="0${cpu_used}"
+#fi
+UPtime=`/usr/bin/uptime | awk '{print $3""$4""$5}'`
+echo $cpu_io
+echo $cpu_used
+echo $UPtime
+hostname
+

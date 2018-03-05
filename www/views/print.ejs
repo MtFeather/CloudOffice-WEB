@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= title %></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link  rel="stylesheet" href="/vendor/bootstrap.min.css"/>
+<link  rel="stylesheet" href="/css/style.css"/>
+<link  rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css"/>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <div class="navbar-brand">帳戶資料</div>
+    </div>
+    <ul class="nav navbar-nav navbar-right"></ul>
+  </div>
+</nav>
+<div style="margin:60px" class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width:40px">#</th>
+        <th style="width:180px">姓名</th>
+        <th style="width:200px">國家</th>
+        <th style="width:180px">帳號</th>
+        <th>創建時間</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (var i = 0; i < accts.length; i++){%>
+      <tr>
+        <td> <%= i+1 %></td>
+	<td> <%= accts[i].name %></td>
+	<td> <%= accts[i].country %></td>
+	<td> <%= accts[i].user %></td>
+	<td> <%= accts[i].date %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<script src="/vendor/bootstrap.min.js"></script>
+</body>
+</html>

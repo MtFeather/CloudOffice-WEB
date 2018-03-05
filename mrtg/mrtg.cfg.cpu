@@ -1,0 +1,13 @@
+WorkDir:/srv/cloudoffice/www/public/mrtg
+Language:utf8
+Target[cpu]:`/srv/cloudoffice/mrtg/mrtg.cpu`
+MaxBytes[cpu]:100
+Options[cpu]: gauge,growright
+YLegend[cpu]:CPU loading (%)
+ShortLegend[cpu]: %
+LegendO[cpu]:CPU used:
+LegendI[cpu]:I/O Wait:
+Title[cpu]:CPU Loading
+PageTop[cpu]:<h1>CPU 使用率統計表</h1>
+
+

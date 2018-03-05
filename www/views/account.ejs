@@ -1,0 +1,59 @@
+
+<!--- preset form values if we receive a userdata object --->
+<% user = typeof(udata) != 'undefined' ? udata : { } %>
+<!--- store the userId on the client side in a hidden input field --->
+<div id="account-form-container" class="center">
+  <form method="post" id="account-form" class="form-horizontal well" style="width: 400px;">
+    <h2></h2>
+    <hr>
+    <h6 id="sub2"></h6>
+    <div class="form-group">
+      <label class="control-label col-sm-3">帳號:</label>
+      <div class="col-sm-8">
+        <input id="user-tf" type="text" name="account" value="<%= user.user %>" class="form-control" placeHolder="請輸入帳號2字元以上，且為英文和數字" autofocus>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">密碼:</label>
+      <div class="col-sm-8">
+          <input id="pass-tf" type="password" name="passwd" value="" class="form-control" placeHolder="請輸入密碼，至少6個字元以上">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">確認密碼:</label>
+      <div class="col-sm-8">
+          <input id="repass-tf" type="password" name="repasswd" value="" class="form-control" placeHolder="再次輸入密碼">
+      </div>
+    </div>
+    <hr/>
+    <h6 id="sub1"></h6>
+    <div class="form-group">
+      <label class="control-label col-sm-3">姓名:</label>
+      <div class="col-sm-8">
+        <input id="name-tf" type="text" name="name" value="<%= user.name %>" class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">性別:</label>
+      <div class="col-sm-8">
+        <label class="radio-inline"><input style="margin-top: -5px;" type="radio" name="sex" value="男" checked="checked"/>男</label>
+        <label class="radio-inline"><input style="margin-top: -5px;" type="radio" name="sex" value="女"/>女</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">信箱:</label>
+      <div class="col-sm-8">
+        <input id="email-tf" type="text" name="email" value="<%= user.email %>" class="form-control"/>
+      </div>
+    </div>
+    <hr>
+    <div class="form-buttons">
+      <button type="button" id="account-form-btn1" class="btn btn-default"></button>
+      <button type="submit" id="account-form-btn2" class="btn btn-primary"></button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </form>
+</div>
+<!-- display form errors in a custom modal window -->
+<% include modals/form-errors %>

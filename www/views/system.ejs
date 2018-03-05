@@ -1,0 +1,129 @@
+<% include header.ejs %>
+<script src="/javascripts/Chart.js"></script>
+<div class="container">
+  <h2><span class="glyphicon glyphicon-flag"></span><%= title %></h2>
+  <hr>
+  <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <tr>
+          <td class="col-md-2">CPU廠牌</td>
+          <td class="col-md-10"><%= cpu.manufacturer %></td>
+	</tr>
+	<tr>
+          <td class="col-md-2">CPU型號</td>
+          <td class="col-md-10"><%= cpu.brand %></td>
+	</tr>
+	<tr>
+          <td class="col-md-2">CPU核心數</td>
+          <td class="col-md-10"><%= cpu.cores/2 %></td>
+        </tr>
+	<tr>
+          <td class="col-md-2">作業系統</td>
+          <td class="col-md-10"><%= os.platform %></td>
+        </tr>
+	<tr>
+          <td class="col-md-2">核心版本</td>
+          <td class="col-md-10"><%= os.kernel %></td>
+        </tr>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <canvas id="myMem" width="10" height="10"></canvas>
+    </div>
+    <div class="col-md-4">
+      <canvas id="myHd" width="10" height="10"></canvas>
+    </div>
+    <div class="col-md-4">
+      <canvas id="myBd" width="10" height="10"></canvas>
+    </div>
+  </div>
+</div>
+<script>
+var mem = document.getElementById("myMem");
+var myMem = new Chart(mem, {
+    type: 'pie',
+    data: {
+        labels: [
+        "已使用(<%=  Math.round(mem.active/1024/1024) %>MB)",
+        "未使用(<%= Math.round((mem.total/1024/1024)-(mem.active/1024/1024)) %>MB)",
+        ],
+        datasets: [
+        {
+            data: [<%=  Math.round(mem.active/1024/1024) %>, <%= Math.round(mem.free/1024/1024) %>],
+            backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+            ],
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+            ]
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: '記憶體容量(<%=  Math.round(mem.total/1024/1024) %>MB)'
+        }
+    }
+});
+var hd = document.getElementById("myHd");
+var myHd = new Chart(hd, {
+    type: 'pie',
+    data: {
+        labels: [
+        "已使用(<%= Math.round((original_used/original_size)*100) %>%)",
+        "未使用(<%= Math.round(((original_size-original_used)/original_size)*100) %>%)",
+        ],
+        datasets: [
+        {
+            data: [<%=  Math.round(original_used/1024/1024/1024) %>, <%= Math.round((original_size-original_used)/1024/1024/1024) %>],
+            backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+            ],
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+            ]
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: '原始碟容量(<%=  Math.round(original_size/1024/1024/1024) %>GB)'
+        }
+    }
+});
+var bd = document.getElementById("myBd");
+var myBd = new Chart(bd, {
+    type: 'pie',
+    data: {
+        labels: [
+        "已使用(<%=  Math.round((backing_used/backing_size)*100) %>%)",
+        "未使用(<%= Math.round(((backing_size-backing_used)/backing_size)*100) %>%)",
+        ],
+        datasets: [
+        {
+            data: [<%=  Math.round(backing_used/1024/1024/1024) %>, <%= Math.round((backing_size-backing_used)/1024/1024/1024) %>],
+            backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+            ],
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+            ]
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: '複製碟容量(<%=  Math.round(backing_size/1024/1024/1024) %>GB)'
+        }
+    }
+});
+</script>
+<% include footer.ejs %>
+

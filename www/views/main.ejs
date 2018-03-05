@@ -1,0 +1,34 @@
+<% include header.ejs %>
+<div class="jumbotron">
+  <div class="container">
+	<h1>Welcome to the Cloud Office</h1>
+	<h2>雲端辦公室系統與使用者介面優化</h2>
+  </div>
+	<img class="img-responsive pull-right" src="../images/penguin.png" style="margin-top:-11%;width:30%;height:30%; z-index: 99;"/>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>最新資訊</h2>
+    </div>
+  </div>
+  <div class="row">
+  <% items.forEach(function(rows) { %>
+    <div class="col-md-4" style="height: 200px; overflow: hidden;">
+      <div class="panel panel-default">
+        <div class="panel-body" id="index_news">
+          <p style="text-overflow:ellipsis; white-space : nowrap;"><%= rows.subject %></p>
+          <p style="height: 100px; overflow: hidden;"><%= rows.content %></p>
+          <a style="text-decoration:none;"href='news_content?id=<%= rows.nid %>' class="pull-right">more...</a>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <a class="btn btn-default pull-right" href="news" role="button">查看更多 &raquo;</a>
+    </div>
+  </div>
+</div>
+<% include footer.ejs %>

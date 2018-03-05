@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= title %></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link  rel="stylesheet" href="/stylesheets/style1.css"/>
+<link  rel="stylesheet" href="/stylesheets/bootstrap.css"/>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/vendor/jquery.form.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+</head>
+<body class="mybody">
+<div class="container">
+  <h2><span class="glyphicon glyphicon-pencil"></span><%= title %></h2>
+  <hr>
+  <div class="row col-sm-9">
+  <form  class="form-horizontal" id="vm-form" role="form" method="post">
+    <div class="form-group">
+      <label class="control-label col-sm-2">主旨：</label>
+      <p class="form-control-static"><%= items[0].subject %></p>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">發佈日期：</label>
+      <p class="form-control-static"><%= items[0].post_date %></p>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">最後更新日期：</label>
+      <p class="form-control-static"><%= items[0].edit_date %></p>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">作者：</label>
+      <p class="form-control-static"><%= items[0].name %></p>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">內容：</label>
+      <textarea style="background-color: white; border-radius: 8px; margin-top: 10px;" rows="15" class="form-control-static col-sm-8" disabled ><%= items[0].content %></textarea>
+    </div>
+    <div class="form-buttons pull-right col-sm-3">
+	  <button type="button" class="btn btn-primary" onclick="history.back()">返回</button>
+    </div>
+  </form>
+  </div>
+    <!-- display form errors in a custom modal window -->
+    <% include modals/form-errors %>
+    <% include modals/alert %>
+    <% include modals/confirm %>
+</div>
+</div>
+</body>
+</html>

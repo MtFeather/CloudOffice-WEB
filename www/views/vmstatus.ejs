@@ -1,0 +1,148 @@
+<% include header.ejs %>
+<div class="container">
+  <h1><span class="glyphicon glyphicon-cloud"></span><%= title %></h1>
+  <hr>
+  <% if(vmstatus==0){ %>
+  <form class="form-horizontal" role="form" id="vmstatus-form" method="post">
+    <div class="row">
+      <div class="form-group">
+        <label class="control-label col-md-2 col-md-offset-2">硬碟名稱:</label>
+        <div class="col-md-4">
+          <select class="form-control" name="path" id="path">
+            <option value="">請選擇硬碟</option>
+            <% original.forEach(function(rows) {%>
+            <option value="<%= rows.hd_path %>">(原始碟)<%= rows.hd_name %></option>
+            <% }) %>
+            <% backing.forEach(function(rows) {%>
+            <option value="vm_<%= rows.hd_path %>"><%= rows.hd_name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-success" data-tooltip="tooltip" title="請選擇一項硬碟開啟機器">開啟機器</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3">
+        <a href="#" data-toggle="collapse" data-target="#demo" data-tooltip="tooltip" title="底下為進階設定，一般用戶請忽略底下的選項，直接點選開啟機器即可">>>進階設定 (變更硬體設定)</a>
+      </div>
+    </div>
+    <div id="demo" class="row collapse">
+      <div class="form-group">
+        <label class="control-label col-md-2 col-md-offset-2">預設開機磁碟:</label>
+        <div class="col-md-2">
+          <select class="form-control" name="boot" onChange="change(this.value)" data-tooltip="tooltip" title="選擇使用哪種媒體開機">
+            <option value="hd"  id="hd" selected>硬碟</option>
+            <option value="cdrom"  id="cdrom">光碟</option>
+          </select>
+        </div>
+      </div>
+      <div id="panel" class="form-group collapse">
+        <label class="control-label col-md-2 col-md-offset-2">請選擇光碟:</label>
+        <div class="col-md-4">
+          <select class="form-control" name="cdrom" data-tooltip="tooltip" title="選擇要放入的光碟映象檔">
+            <option value="">請選擇底下的光碟</option>
+            <% cdrom.forEach(function(cdrom) {%>
+            <option value="<%= cdrom %>"><%= cdrom %></option>
+            <% }) %>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br/>
+  <div class="row">
+    <div class="well col-md-10 col-md-offset-1">
+      <p>1. 請務必關閉您瀏覽器的 Proxy 設定！否則連線會失敗！</p>
+      <p>2. 至少需要選擇一個『硬碟名稱』後才能夠點選『開啟機器』按鈕來替雲端主機開機</p>
+      <p>3. 若有需要瞭解每個項目的詳細資訊，請將滑鼠移動到選項上，即可取得一些簡易說明</p>
+    </div>
+  </div>
+  <% } else if(vmstatus==1){ %>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="row">
+      <div class="panel panel-info">
+        <div class="panel-heading">環境名稱:<%= vmname %></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-2">
+      <div class="panel panel-info">
+        <div class="panel-heading">系統提供的功能</div>
+        <div class="panel-body">
+          <label>個人雲資料硬碟:</label>以提供8G雲端硬碟<br/>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">主機置換光碟/關機</div>
+        <div class="panel-body">
+          <p>目前光碟:<%= uscdrom == 0 ? '無' : uscdrom %></p>
+          <div class="radio">
+            <label><input type="radio" id="changecdrom" name="optradio">置換光碟</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" id="closevm" name="optradio">關閉機器</label>
+          </div>  
+          <a href="closevm"><button type="button" class="btn btn-danger collapse" id="btn-close">關閉機器</button></a>
+          <div class="row collapse" id="btn-cdrom">
+            <form class="form-horizontal" action="changecdrom" method="post">
+              <div class="col-md-9">
+                <select class="form-control" name="cdrom">
+                  <option value="">請選擇底下的光碟</option>
+                  <option value="0">退出光碟</option>
+                  <% cdrom.forEach(function(cdrom){ %>
+                  <option value="<%= cdrom %>"><%= cdrom %></option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">送出</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-info">
+        <div class="panel-heading">連線方式</div>
+        <div class="panel-body">
+            <label>spice://<%= serverip %>:<%= port %></label><br/>
+            <a href="spice://<%= serverip %>:<%= port %>"><button type="button" class="btn btn-primary">remote-viewer</button></a>
+            <a href="spice?p=<%= port-1000 %>"><button type="button" class="btn btn-primary">spice-html5</button></a>
+            <a href="vnc_auto?p=<%= port-2000 %>"><button type="button" class="btn btn-primary">noVNC</button></a>
+        </div>
+      </div>
+      <% if(user.id == ori_eid) { %>
+      <div class="panel panel-info">
+        <div class="panel-heading">廣播系統
+	  <div class="btn-group btn-group-xs pull-right">
+            <a href="#" class="btn btn-primary <%= broadcast == 0 ? ' ' : 'active' %>" id="broadcast_On">On</a>
+            <a href="#" class="btn btn-primary <%= broadcast == 0 ? 'active' : ' ' %>" id="broadcast_Off">Off</a>
+          </div>
+        </div>
+        <div class="panel-body <%= broadcast == 0 ? 'collapse' : ' ' %>" id="broadcast_panel">
+            <a href="su_broadcast"><button type="button" class="btn btn-primary">進入廣播系統</button></a>
+        </div>
+      </div>
+      <% } else { %>
+      <div class="panel panel-info">
+        <div class="panel-heading">廣播畫面
+        </div>
+        <div class="panel-body">
+            <a href="broadcast"><button type="button" class="btn btn-primary">進入廣播畫面</button></a>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+</div>
+<% include modals/form-errors %>
+<% include modals/alert %>
+<script src="/javascripts/views/vm.js"></script>
+<script src="/javascripts/controllers/virtualController.js"></script>
+<script src="/javascripts/form-validators/virtualValidator.js"></script>
+<% include footer.ejs %>

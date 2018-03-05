@@ -1,0 +1,12 @@
+WorkDir:/srv/cloudoffice/www/public/mrtg
+Language:utf8
+Target[memory]:`/srv/cloudoffice/mrtg/mrtg.mem`
+MaxBytes[memory]: 125000000
+Title[memory]: memory_status
+PageTop[memory]: <H1>記憶體使用率統計表</H1>
+Options[memory]: growright,gauge,integer
+YLegend[memory]: memory used(%)
+ShortLegend[memory]:%
+LegendI[memory]: -cache:
+LegendO[memory]: +Cache:
+

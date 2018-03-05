@@ -1,0 +1,46 @@
+<% include header.ejs %>
+<div class="container">
+    <h2><span class="icon-adduseralt"></span><%= title %></h2>
+    <hr>
+    <div id="account-form-container" class="col-md-6">
+      <form  id="account-form" class="form-signin" role="form" method="post">
+        <div class="form-group">
+          <label for="usr">帳號:</label>
+          <input id="user-tf" type="text" name="account" class="form-control" placeHolder="請輸入帳號2字元以上，且為英文和數字">
+        </div>
+        <div class="form-group">
+          <label for="pwd">變更密碼:*如不需要變更密碼，請忽略填寫</label>
+          <input id="pass-tf" type="password" name="passwd" class="form-control" placeHolder="請輸入密碼，至少6個字元以上">
+        </div>
+        <div class="form-group">
+          <label for="pwd">確認密碼:</label>
+          <input id="repass-tf" type="password" name="repasswd" class="form-control" placeHolder="再次輸入密碼">
+        </div>
+        <hr/>
+        <div class="form-group">
+          <label for="usr">姓名:</label>
+          <input id="name-tf" type="text" name="name" class="form-control" placeHolder="請輸入姓名"/>
+        </div>
+        <div class="form-group">
+          <label>性別:</label>
+          <label class="radio-inline"><input type="radio" name="sex" value="男" checked="checked"/>男</label>
+          <label class="radio-inline"><input type="radio" name="sex" value="女"/>女</label>
+        </div>
+        <div class="form-group">
+          <label>信箱:</label>
+          <input id="email-tf" type="text" name="email"class="form-control" placeHolder="請輸入電子信箱"/>
+        </div>
+        <hr>
+        <div class="form-buttons pull-right">
+          <button type="submit" id="account-form-btn2" class="btn btn-primary"></button>
+        </div>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+    <% include modals/form-errors %>
+    <% include modals/alert %>
+</div>
+<script src="/javascripts/views/register.js"></script>
+<script src="/javascripts/controllers/registerController.js"></script>
+<script src="/javascripts/form-validators/accountValidator.js"></script>
+<% include footer.ejs %>

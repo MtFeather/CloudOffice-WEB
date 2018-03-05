@@ -1,0 +1,158 @@
+<% include header.ejs %>
+<div class="container">
+  <h2><span class="icon-managedhosting"></span><%= title %></h2>
+  <hr>
+  <div class="row">
+    <div class="col-md-4 pull-right">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" class="form-control" id="myInput" onkeyup="mySearch()" placeholder="搜尋使用者">
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table id="myTable" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            <span class="glyphicon glyphicon-eye-open"></span>
+          </th>
+          <th>使用者</th>
+          <th>預設開機</th>
+	  <th class="col-md-4">置換光碟</th>
+          <th>狀態</th>
+          <th>port</th>
+          <th>進階設定</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% items.forEach(function(rows) { %>
+        <form class="form-horizontal" method="post">
+        <input type="hidden" value="<%= rows.oid %>" name="oid" id="oid"/>
+        <input type="hidden" value="<%= rows.eid %>" name="eid" id="eid"/>
+        <input type="hidden" value="vm_<%= rows.hd_path %>" name="path"/>
+        <tr>
+          <td>
+            <% if(rows.user_port==0 || rows.back_status=='0') { %>
+              <span class="glyphicon glyphicon-eye-close"></span>
+            <% } else { %>
+              <a href="#" onclick="changeip(<%= rows.eid %>)">
+                <span class="glyphicon glyphicon-eye-open" data-tooltip="tooltip" title="點擊觀看此硬碟"></span>
+              </a> 
+            <% } %>
+          </td>
+          <td>
+            <%= rows.name %>
+          </td>
+          <td>
+            <% if(rows.back_status=='1'){ %>
+              已啟動
+  	    <% } else { %>
+            <div class="form-group">
+              <div>
+                <select class="form-control" name="boot" onChange="cdromchange(this.value, <%= rows.eid %>)" <%= (rows.hd_status > 1 || rows.disable == 1) ? 'disabled' : '' %>>
+                  <option value="hd"  id="hd" selected>硬碟</option>
+                  <option value="cdrom"  id="cdrom">光碟</option>
+                </select>
+              </div>
+            </div>
+            <% } %>
+          </td>
+          <td>
+            <div id="panel<%= rows.eid %>" class="form-group collapse">
+              <div class="col-md-12">
+                <select class="form-control" name="cdrom">
+                  <option value="">請選擇底下的光碟</option>
+                  <% cdrom.forEach(function(cdrom) {%>
+                  <option value="<%= cdrom %>"><%= cdrom %></option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+            <% if(rows.back_status=='1'){ %>
+              <div id="panel<%= rows.eid %>" class="form-group">
+                <div class="col-md-8">
+		<select class="form-control" id="cdrom<%= rows.eid %>" name="changecdrom<%= rows.eid %>">
+	            <option value="">請選擇以下光碟</option>
+	            <option value="0">退出光碟</option>
+                    <% cdrom.forEach(function(cdrom) {%>
+	            <option value="<%= cdrom %>"><%= cdrom %></option>
+	            <% }) %>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <button onclick="changecdrom(<%= rows.eid %>)" type="button" class="btn btn-primary">送出</button>
+                </div>
+              </div>
+            <% } %>
+	  </td>
+          <td><span class="label label-<%= (rows.back_status == '0') ? 'default' : 'success'; %>"><%= (rows.back_status == '0') ? '關機' : '開機'; %></span></td>
+          <td>
+            <% if(rows.user_port==0 || rows.back_status=='0') { %>
+              未啟動
+            <% } else { %>
+              <a href="spice://<%= serverip  %>:<%= rows.user_port %>"><%= rows.user_port %></a>
+            <% } %>
+          </td>
+          <td>
+          <% if (rows.hd_status > 1 || rows.disable == 1) { %>
+            <button type="button" class="btn btn-info" disabled>啟動</button>
+            <button type="button" class="btn btn-success" disabled>還原</button>
+            <button type="button" class="btn btn-danger" disabled><span class="glyphicon glyphicon-trash"></span></button>
+          <% } else { %>
+            <% if(rows.user_port=='0') {%>
+              <button type="submit" class="btn btn-info">啟動</button>
+            <% } else if(rows.user_port != 0 && rows.back_status=='0'){%>
+              <button type="button" class="btn btn-defaut" disabled>啟動</button>
+            <% } else { %>
+	      <button type="button" class="btn btn-warning" onclick="closedep(<%= rows.eid %>)">關閉</button>
+            <% } %>
+	    <% if(rows.user_port != 0 && rows.back_status=='1') {%>
+            <button type="button" class="btn btn-success" disabled>還原</button>
+            <button type="button" class="btn btn-danger" disabled><span class="glyphicon glyphicon-trash"></span></button>
+	    <% } else{ %>
+            <button type="button" class="btn btn-success" onclick="reduction(<%= rows.eid %>)" data-tooltip="tooltip" title="將此員工電腦還原">還原</button>
+            <button type="button" class="btn btn-danger" onclick="deletevm(<%= rows.eid %>)" data-tooltip="tooltip" title="刪除此員工硬碟"><span class="glyphicon glyphicon-trash"></span></button>
+	    <% } %>
+          <% } %>
+          </td>
+        </tr>
+        </form>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% if(items.length == 0) { %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h3>此環境尚無成員，請至<a href="hd_create">員工環境建置</a>加入成員</h3>
+    </div>
+  </div>
+  <% } %>
+    <% include modals/form-errors %>
+    <% include modals/alert %>
+    <% include modals/confirm %>
+</div>
+<script>
+  function mySearch() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+</script>
+<script src="/javascripts/views/vm.js"></script>
+<script src="/javascripts/controllers/virtualController.js"></script>
+<script src="/javascripts/form-validators/virtualValidator.js"></script>
+<% include footer.ejs %>

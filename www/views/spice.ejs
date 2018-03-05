@@ -1,0 +1,125 @@
+<% include header.ejs %>
+<body onload="connect()">
+        <script src="/javascripts/spice/spicearraybuffer.js"></script> 
+        <script src="/javascripts/spice/enums.js"></script> 
+        <script src="/javascripts/spice/atKeynames.js"></script> 
+        <script src="/javascripts/spice/utils.js"></script> 
+        <script src="/javascripts/spice/png.js"></script> 
+        <script src="/javascripts/spice/lz.js"></script> 
+        <script src="/javascripts/spice/quic.js"></script> 
+        <script src="/javascripts/spice/bitmap.js"></script> 
+        <script src="/javascripts/spice/spicedataview.js"></script> 
+        <script src="/javascripts/spice/spicetype.js"></script> 
+        <script src="/javascripts/spice/spicemsg.js"></script> 
+        <script src="/javascripts/spice/wire.js"></script> 
+        <script src="/javascripts/spice/spiceconn.js"></script> 
+        <script src="/javascripts/spice/display.js"></script> 
+        <script src="/javascripts/spice/main.js"></script> 
+        <script src="/javascripts/spice/inputs.js"></script> 
+        <script src="/javascripts/spice/webm.js"></script>
+        <script src="/javascripts/spice/playback.js"></script>
+        <script src="/javascripts/spice/simulatecursor.js"></script>
+        <script src="/javascripts/spice/cursor.js"></script> 
+        <script src="/javascripts/spice/thirdparty/jsbn.js"></script>
+        <script src="/javascripts/spice/thirdparty/rsa.js"></script>
+        <script src="/javascripts/spice/thirdparty/prng4.js"></script>
+        <script src="/javascripts/spice/thirdparty/rng.js"></script>
+        <script src="/javascripts/spice/thirdparty/sha1.js"></script>
+        <script src="/javascripts/spice/ticket.js"></script>
+        <script src="/javascripts/spice/resize.js"></script>
+        <script src="/javascripts/spice/filexfer.js"></script>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/spice.css" />
+
+        <script>
+            var host = null, port = null;
+            var sc;
+
+            function spice_error(e)
+            {
+                disconnect();
+            }
+
+            function connect()
+            {
+                var host, port, password, scheme = "ws://", uri;
+
+                host = '<%= serverip %>'; 
+                port = '<%= port %>'; 
+                password = '';
+
+
+                if ((!host) || (!port)) {
+                    console.log("must set host and port");
+                    return;
+                }
+
+                if (sc) {
+                    sc.stop();
+                }
+
+                uri = scheme + host + ":" + port;
+
+                try
+                {
+                    sc = new SpiceMainConn({uri: uri, screen_id: "spice-screen", dump_id: "debug-div", 
+                                message_id: "message-div", password: password, onerror: spice_error, onagent: agent_connected });
+                }
+                catch (e)
+                {
+                    alert(e.toString());
+                    disconnect();
+                }
+
+            }
+
+            function disconnect()
+            {
+                console.log(">> disconnect");
+                if (sc) {
+                    sc.stop();
+                }
+                if (window.File && window.FileReader && window.FileList && window.Blob)
+                {
+                    var spice_xfer_area = document.getElementById('spice-xfer-area');
+                    document.getElementById('spice-area').removeChild(spice_xfer_area);
+                    document.getElementById('spice-area').removeEventListener('dragover', handle_file_dragover, false);
+                    document.getElementById('spice-area').removeEventListener('drop', handle_file_drop, false);
+                }
+                console.log("<< disconnect");
+            }
+
+            function agent_connected(sc)
+            {
+                window.addEventListener('resize', handle_resize);
+                window.spice_connection = this;
+
+                resize_helper(this);
+
+                if (window.File && window.FileReader && window.FileList && window.Blob)
+                {
+                    var spice_xfer_area = document.createElement("div");
+                    spice_xfer_area.setAttribute('id', 'spice-xfer-area');
+                    document.getElementById('spice-area').appendChild(spice_xfer_area);
+                    document.getElementById('spice-area').addEventListener('dragover', handle_file_dragover, false);
+                    document.getElementById('spice-area').addEventListener('drop', handle_file_drop, false);
+                }
+                else
+                {
+                    console.log("File API is not supported");
+                }
+            }
+
+        </script>
+  <div class="row">
+    <div id="spice-area">
+      <div id="spice-screen" class="spice-screen"></div>
+    </div>
+
+    <div id="message-div" class="spice-message"></div>
+
+    <div id="debug-div">
+    <!-- If DUMPXXX is turned on, dumped images will go here -->
+    </div>
+  </div>
+</body>
+<% include footer.ejs %>

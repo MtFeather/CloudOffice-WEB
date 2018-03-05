@@ -1,0 +1,78 @@
+<% include header.ejs %>
+<div class="container">
+  <h1><span class="glyphicon glyphicon-hdd"></span><%= title %></h1>
+  <hr>
+  <form  class="form-horizontal" id="vm-form" role="form" method="post">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="hdname">研討電腦名稱:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="hdname-tf" name="hdname" value="<%= items[0].hd_name %>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="hdsize">硬碟容量:</label>
+      <div class="col-sm-2">
+        <select class="form-control" name="hdsize">
+          <option value='20'<% if(items[0].hd_size==20) {%> selected <% } %>>20 GB</option>
+          <option value='50'<% if(items[0].hd_size==50) {%> selected <% } %>>50 GB</option>
+          <option value='100'<% if(items[0].hd_size==100) {%> selected <% } %>>100 GB</option>
+          <option value='200'<% if(items[0].hd_size==200) {%> selected <% } %>>200 GB</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="cpu">CPU數量:</label>
+      <div class="col-sm-2">
+        <select class="form-control" name="cpu">
+          <option value='1'<% if(items[0].hd_cpu==1) {%> selected <% } %>>1 顆</option>
+          <option value='2'<% if(items[0].hd_cpu==2) {%> selected <% } %>>2 顆</option>
+          <option value='3'<% if(items[0].hd_cpu==3) {%> selected <% } %>>3 顆</option>
+          <option value='4'<% if(items[0].hd_cpu==4) {%> selected <% } %>>4 顆</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="ram">記憶體量:</label>
+      <div class="col-sm-2">
+        <select class="form-control" name="ram">
+          <option value='1'<% if(items[0].hd_ram==1) {%> selected <% } %>>1.0 GB</option>
+          <option value='1.5'<% if(items[0].hd_ram==1.5) {%> selected <% } %>>1.5 GB</option>
+          <option value='2'<% if(items[0].hd_ram==2) {%> selected <% } %>>2.0 GB</option>
+          <option value='3'<% if(items[0].hd_ram==3) {%> selected <% } %>>3.0 GB</option>
+          <option value='4'<% if(items[0].hd_ram==4) {%> selected <% } %>>4.0 GB</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="owner">部門擁有者:</label>
+      <div class="col-sm-2">
+        <% if(user.level == 0) {%>
+        <select class="form-control" name="owner">
+          <% items.forEach(function(rows) {%>
+          <option value='<%= rows.eid %>' <%=  rows.name == user.name ? "selected" : "" %> >(<%= rows.lv %>)<%= rows.name %></option>
+          <% }) %>
+        </select>
+        <% } else { %>
+        <div style="margin-top: 9px;"><%= user.name %></div>
+        <input value="<%= user.id %>" name="owner" type="hidden">
+        <% } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="reduction">還原卡功能:</label>
+      <div class="col-sm-2">
+        <label class="radio-inline"><input type="radio" name="reduction" value="1" <%=  items[0].restore == "1" ? "checked" : "" %> checked="checked" />是</label>
+        <label class="radio-inline"><input type="radio" name="reduction" value="0" <%=  items[0].restore == "0" ? "checked" : "" %>/>否</label>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+	  <a href="department"><button type="button"  class="btn btn-default">&laquo;返回</button></a>
+          <button type="button" id="news-form-btn1" class="btn btn-warning">取消</button>
+          <button type="submit" id="news-form-btn2" class="btn btn-info">更新</button>
+  </form>
+</div>
+<% include modals/form-errors %>
+<% include modals/alert %>
+
+<% include footer.ejs %>
+

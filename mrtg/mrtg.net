@@ -1,0 +1,24 @@
+#!/bin/bash
+#偵測流量的程式
+nip=eno1
+LANG=C
+nettemp=$( sar -n DEV | grep "$nip" | grep  -v 'Average' | tail -n 1 | awk '{print $5,$6}' )
+net1=$(echo ${nettemp} | awk '{print $1} ' )
+net2=$(echo ${nettemp} | awk '{print $2} ' )
+#net_received=$( echo "scale=5;${net1}/1024" | bc ) MByte
+#net_trans=$( echo "scale=5;${net2}/1024" | bc )  MByte
+UPtime=`/usr/bin/uptime | awk '{print $3""$4""$5}'`
+check_a=$(echo $net1 | cut -d '.' -f1)
+if [ "$check_a" == "" ]; then
+	net1="0${net1}"
+fi
+check_a=$(echo $net2 | cut -d '.' -f1)
+if [ "$check_a" == "" ]; then
+	net2="0${net2}"
+fi
+echo $net1
+echo $net2
+#echo $net_received
+#echo $net_trans
+echo $UPtime
+hostname

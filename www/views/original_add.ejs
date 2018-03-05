@@ -1,0 +1,429 @@
+<% include header.ejs %>
+<link rel="stylesheet" href="/stylesheets/whhg.css"/>
+<link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"/>
+<script src="/javascripts/jquery-ui.min.js"></script>
+<style>
+  .gallery.custom-state-active { background: #eee; }
+  .gallery li { float: left; width: 96px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; z-index: 999;}
+  .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
+  .gallery li a { float: right; }
+ 
+  .panel-heading-sm{
+    height: 28px;
+    padding: 4px 10px;
+  }
+  
+  .btn-custom {
+    border-radius: 50px;
+  }
+</style>
+  
+
+<script>
+$(function(){
+	   $("#Graphics-btn").click(function(){
+	    	$("#Tradition").slideUp();
+		    $("#Graphics").slideDown();
+    	});
+        $("#Tradition-btn").click(function(){
+                $("#Tradition").slideDown();
+                $("#Graphics").slideUp();
+        });
+//////////////////////HD///////////////////////////
+		$( "li", "#hd-tag" ).draggable({
+		  cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+		  revert: "invalid", // when not dropped, the item will revert back to its initial position
+		  containment: "document",
+		  helper: "clone",
+		  cursor: "move"
+		});
+	 
+		// Let the trash be droppable, accepting the gallery items
+		$( "#hd-box" ).droppable({
+		  accept: "#hd-tag > li",
+		  classes: {
+			"ui-droppable-active": "ui-state-highlight"
+		  },
+		  drop: function( event, ui ) {
+			addcpu( ui.draggable , "#hd-box" , "#hd-tag" );
+			$('#hdsize').val(ui.draggable.data('product'));
+		  }
+		});
+	 
+		// Let the gallery be droppable as well, accepting items from the trash
+		$( "#hd-tag" ).droppable({
+		  accept: "#hd-box li",
+		  classes: {
+			"ui-droppable-active": "custom-state-active"
+		  },
+		  drop: function( event, ui ) {
+			delcpu( ui.draggable , "#hd-tag" );
+			$('#hdsize').val("");
+		  }
+		});
+		
+//////////////////////CPU///////////////////////////
+		$( "li", "#cpu-tag" ).draggable({
+		  cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+		  revert: "invalid", // when not dropped, the item will revert back to its initial position
+		  containment: "document",
+		  helper: "clone",
+		  cursor: "move"
+		});
+	 
+		// Let the trash be droppable, accepting the gallery items
+		$( "#cpu-box" ).droppable({
+		  accept: "#cpu-tag > li",
+		  classes: {
+			"ui-droppable-active": "ui-state-highlight"
+		  },
+		  drop: function( event, ui ) {
+			addcpu( ui.draggable , "#cpu-box" , "#cpu-tag" );
+			$('#cpu').val(ui.draggable.data('product'));
+		  }
+		});
+	 
+		// Let the gallery be droppable as well, accepting items from the trash
+		$( "#cpu-tag" ).droppable({
+		  accept: "#cpu-box li",
+		  classes: {
+			"ui-droppable-active": "custom-state-active"
+		  },
+		  drop: function( event, ui ) {
+			delcpu( ui.draggable , "#cpu-tag" );
+			$('#cpu').val("");
+		  }
+		});
+		
+//////////////////////RAM///////////////////////////
+		$( "li", "#ram-tag" ).draggable({
+		  cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+		  revert: "invalid", // when not dropped, the item will revert back to its initial position
+		  containment: "document",
+		  helper: "clone",
+		  cursor: "move"
+		});
+	 
+		// Let the trash be droppable, accepting the gallery items
+		$( "#ram-box" ).droppable({
+		  accept: "#ram-tag > li",
+		  classes: {
+			"ui-droppable-active": "ui-state-highlight"
+		  },
+		  drop: function( event, ui ) {
+			addcpu( ui.draggable , "#ram-box" , "#ram-tag" );
+			$('#ram').val(ui.draggable.data('product'));
+		  }
+		});
+	 
+		// Let the gallery be droppable as well, accepting items from the trash
+		$( "#ram-tag" ).droppable({
+		  accept: "#ram-box li",
+		  classes: {
+			"ui-droppable-active": "custom-state-active"
+		  },
+		  drop: function( event, ui ) {
+			delcpu( ui.draggable , "#ram-tag" );
+			$('#ram').val("");
+		  }
+		});		
+		
+//////////////////////REDUCTION///////////////////////////
+		$( "li", "#reduction-tag" ).draggable({
+		  cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+		  revert: "invalid", // when not dropped, the item will revert back to its initial position
+		  containment: "document",
+		  helper: "clone",
+		  cursor: "move"
+		});
+	 
+		// Let the trash be droppable, accepting the gallery items
+		$( "#reduction-box" ).droppable({
+		  accept: "#reduction-tag > li",
+		  classes: {
+			"ui-droppable-active": "ui-state-highlight"
+		  },
+		  drop: function( event, ui ) {
+			addcpu( ui.draggable , "#reduction-box" , "#reduction-tag" );
+			$('#reduction').val(ui.draggable.data('product'));
+		  }
+		});
+	 
+		// Let the gallery be droppable as well, accepting items from the trash
+		$( "#reduction-tag" ).droppable({
+		  accept: "#reduction-box li",
+		  classes: {
+			"ui-droppable-active": "custom-state-active"
+		  },
+		  drop: function( event, ui ) {
+			delcpu( ui.draggable , "#reduction-tag" );
+			$('#reduction').val("");
+		  }
+		});
+		
+		function addcpu( $item , $device , $tag ) {
+                  if ($( $device + " li" ).length === 0) {
+                    
+                  } else {
+                    $( $device + " li:first" ).fadeOut(function() {
+                        $( $device + " li:first" )
+                          .css( "width", "96px")
+                          .appendTo( $tag )
+                          .fadeIn();
+                    });
+                  }
+		  $item.fadeOut(function() {
+			var $list = $( "ul", $device ).length ?
+			  $( "ul", $device ) :
+			  $( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $device );
+			$item.appendTo( $list ).fadeIn(function() {
+			  $item
+				.animate({ width: "60px" })				
+			});
+		  });
+		}
+
+		function delcpu( $item , $device ) {
+		  $item.fadeOut(function() {
+			$item			  
+			  .css( "width", "96px")			  
+			  .appendTo( $device )
+			  .fadeIn();
+		  });
+		}
+	 
+});
+</script>
+<div class="container">
+  <h1><span class="glyphicon glyphicon-hdd"></span><%= title %></h1>
+  <hr>
+  <label class="radio-inline">
+      <input type="radio" name="optradio" id="Graphics-btn" checked="checked">圖形介面
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="optradio" id="Tradition-btn">傳統介面
+    </label>
+  </label>
+  <div id="Graphics">
+    <div class="ui-widget ui-helper-clearfix">
+      <div class="col-md-5">
+        <form  class="form-horizontal" id="vm-form" role="form" method="post">
+          <div id="trash" class="panel panel-default">
+            <div class="panel-body">
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="hdname">環境電腦名稱:</label>
+                  <input type="text" class="form-control input-sm" id="hdname-tf" name="hdname" placeholder="請輸入部門電腦名稱">
+                </div>
+              </div>
+              <div class="panel panel-success">
+                <div class="panel-heading panel-heading-sm"><span class="icon-hdd"></span>硬碟容量:</div>
+                <div class="panel-body" id="hd-box">
+                  <input type="hidden" value="" id="hdsize" name="hdsize">
+		</div>
+              </div> 
+              <div class="panel panel-info">
+                <div class="panel-heading panel-heading-sm"><span class="icon-cpu-processor"></span>CPU數量:</div>
+                <div class="panel-body" id="cpu-box">
+		  <input type="hidden" value="" id="cpu" name="cpu">
+		</div>
+              </div> 
+              <div class="panel panel-warning">
+                <div class="panel-heading panel-heading-sm"><span class="icon-ram"></span>記憶體量:</div>
+                <div class="panel-body" id="ram-box">
+		  <input type="hidden" value="" id="ram" name="ram">
+		</div>
+              </div>
+              <div class="panel panel-danger">
+                <div class="panel-heading panel-heading-sm"><span class="icon-restore"></span>還原卡功能:</div>
+                <div class="panel-body" id="reduction-box">
+		  <input type="hidden" value="" id="reduction" name="reduction">
+		</div>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="hdname">部門隸屬人:</label>
+                  <% if(user.level == 0) {%>
+                  <select class="form-control input-sm" name="owner">
+                    <% items.forEach(function(rows) {%>
+                    <option value='<%= rows.eid %>' <%=  rows.name == user.name ? "selected" : "" %> >(<%= rows.lv %>)<%= rows.name %></option>
+                    <% }) %>
+                  </select>
+                  <% } else { %>
+                  <div style="margin-top: 9px;"><%= user.name %></div>
+                  <input value="<%= user.id %>" name="owner" type="hidden">
+                  <% } %>
+                </div>
+              </div> 
+              <div class="panel">
+                <div class="panel-body">
+	          <button type="submit" class="btn btn-primary btn-lg pull-right btn-custom" id="Graphics-submit"><span class="glyphicon glyphicon-off"></span>開始建立</button>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-7">
+        <h4>請將所需的電腦配備拖曳置左方電腦</h4>
+        <hr/>
+		<div class="panel panel-success">
+          <div class="panel-heading panel-heading-sm">硬碟容量:</div>
+          <div class="panel-body">
+            <ul id="hd-tag" class="gallery ui-helper-reset ui-helper-clearfix">
+              <% 
+                var j=[20,50,100,200,500];
+                for (var i=0; i<j.length; i++) {
+                  if (j[i] <= disk) {
+              %>
+                    <li class="ui-widget-content ui-corner-tr" data-product="<%= j[i] %>">
+                      <h5 class="ui-widget-header"><span class="icon-hdd"></span><%= j[i] %>G</h5>
+                    </li>
+              <%
+                  }
+                }
+              %>
+            </ul>
+          </div>
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-heading panel-heading-sm">CPU數量:</div>
+          <div class="panel-body">
+            <ul id="cpu-tag" class="gallery ui-helper-reset ui-helper-clearfix">
+              <li class="ui-widget-content ui-corner-tr" data-product="1">
+                <h5 class="ui-widget-header"><span class="icon-cpu-processor"></span>1顆</h5>
+              </li>
+              <li class="ui-widget-content ui-corner-tr" data-product="2">
+                <h5 class="ui-widget-header"><span class="icon-cpu-processor"></span>2顆</h5>
+	      </li>
+	      <li class="ui-widget-content ui-corner-tr" data-product="4">
+                <h5 class="ui-widget-header"><span class="icon-cpu-processor"></span>4顆</h5>
+              </li>
+	      <li class="ui-widget-content ui-corner-tr" data-product="8">
+                <h5 class="ui-widget-header"><span class="icon-cpu-processor"></span>8顆</h5>
+              </li>
+            </ul>
+          </div>
+        </div>
+		<div class="panel panel-warning">
+          <div class="panel-heading panel-heading-sm">記憶體量:</div>
+          <div class="panel-body">
+            <ul id="ram-tag" class="gallery ui-helper-reset ui-helper-clearfix">
+              <%
+                var j=[1,2,4,8];
+                for (var i=0; i<j.length; i++) {
+                  if (j[i] <= ram) {
+              %>
+                    <li class="ui-widget-content ui-corner-tr" data-product="<%= j[i] %>">
+                      <h5 class="ui-widget-header"><span class="icon-ram"></span><%= j[i] %>G</h5>
+                    </li>
+              <%
+                  }
+                }
+              %>
+            </ul>
+          </div>
+        </div>
+		<div class="panel panel-danger">
+          <div class="panel-heading panel-heading-sm">還原卡功能:</div>
+          <div class="panel-body">
+            <ul id="reduction-tag" class="gallery ui-helper-reset ui-helper-clearfix">
+              <li class="ui-widget-content ui-corner-tr" data-product="1">
+                <h5 class="ui-widget-header"><span class="icon-restore"></span>是</h5>
+              </li>
+              <li class="ui-widget-content ui-corner-tr" data-product="0">
+                <h5 class="ui-widget-header"><span class="icon-restore"></span>否</h5>
+	          </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="Tradition" class="collapse">
+  <form  class="form-horizontal" id="vm1-form" role="form" method="post">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="hdname">環境電腦名稱:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="hdname-tf1" name="hdname" placeholder="請輸入部門電腦名稱">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="hdsize">硬碟容量:</label>
+      <div class="col-sm-2">
+        <select class="form-control" name="hdsize">
+          <%
+            var j=[20,50,100,200,500];
+            for (var i=0; i<j.length; i++) {
+              if (j[i] <= disk) {
+          %>
+                <option value='<%= j[i] %>'><%= j[i] %> GB</option>
+          <%
+              }
+            }
+          %>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="cpu">CPU數量:</label>
+      <div class="col-sm-2">
+        <select class="form-control" name="cpu">
+          <option value='1'>1 顆</option>
+          <option value='2'>2 顆</option>
+          <option value='4'>4 顆</option>
+          <option value='8'>8 顆</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="ram">記憶體量:</label>
+      <div class="col-sm-2">
+        <select class="form-control" name="ram">
+          <%
+            var j=[1,2,4,8];
+            for (var i=0; i<j.length; i++) {
+              if (j[i] <= ram) { 
+          %>
+                <option value='<%= j[i] %>'><%= j[i] %> GB</option>
+          <%  
+              }
+            } 
+          %>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="owner">部門擁有者:</label>
+      <div class="col-sm-2">
+        <% if(user.level == 0) {%>
+        <select class="form-control" name="owner">
+          <% items.forEach(function(rows) {%>
+          <option value='<%= rows.eid %>' <%=  rows.name == user.name ? "selected" : "" %> >(<%= rows.lv %>)<%= rows.name %></option>
+          <% }) %>
+        </select>
+        <% } else { %>
+        <div style="margin-top: 9px;"><%= user.name %></div>
+        <input value="<%= user.id %>" name="owner" type="hidden">
+        <% } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="reduction">還原卡功能:</label>
+      <div class="col-sm-2">
+        <label class="radio-inline"><input type="radio" name="reduction" value="1"/>是</label>
+        <label class="radio-inline"><input type="radio" name="reduction" value="0" checked="checked"/>否</label>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+    <button type="submit" class="btn btn-primary" id="Tradition-submit">開始建立</button>
+  </form>
+  </div>
+</div>
+<% include modals/form-errors %>
+<% include modals/alert %>
+<script src="/javascripts/views/vm.js"></script>
+<script src="/javascripts/controllers/virtualController.js"></script>
+<script src="/javascripts/form-validators/virtualValidator.js"></script>
+<% include footer.ejs %>

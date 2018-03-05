@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= title %></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link  rel="stylesheet" href="/stylesheets/style1.css"/>
+<link  rel="stylesheet" href="/stylesheets/bootstrap.css"/>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/vendor/jquery.form.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+</head>
+<body class="mybody">
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/pi/vmstatus">Cloud Office</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/pi/news">最新資訊</a></li>
+        <li><a href="/pi/vmstatus">開啟/關閉虛擬機</a></li>
+        <li><a href="/pi/userprofile">會員資料</a></li>
+        <li><a href="/pi/comment">使用說明</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/pi/userprofile"><span class="glyphicon glyphicon-user"></span><%= user.name %></a></li>
+        <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-off"></span>開啟/關閉<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="poweroff://">關機</a></li>
+          <li><a href="reboot://">重新啟動</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div> 
+</nav>

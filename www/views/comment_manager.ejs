@@ -1,0 +1,76 @@
+<% include header.ejs %>
+<div class="container">
+ <h1><span class="glyphicon glyphicon-book"></span><%= title %></h1>
+  <hr>
+   <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>環境管理說明</h4>
+    </div>
+    <div class="panel-body">
+        <dl>
+         <dt>建置環境方式：</dt>
+          <dd>1. 點選上方的【環境管理】按鈕，選擇【新增環境硬碟】</dd>
+          <dd>2. 依序輸入【環境名稱】、【硬碟容量】、【CPU數量】、【記憶體容量】、【還原卡功能】</dd>
+          <dd>3. 輸入完畢之後，點擊開始建立，就成功建立該部門</dd>
+         <br>
+         <dt>查看環境詳細資訊：</dt>
+          <dd>－點選上方的【環境管理】按鈕，選擇【環境資訊】，即可查看環境資訊</dd>
+         <br>
+         <dt>管理環境方式：</dt>
+          <dd>1. 點選上方的【環境管理】按鈕，選擇【環境管理】</dd>
+          <dd>－ 點選【全部開機】按鈕，可為所有此環境成員進行【全體虛擬機開機】動作，並有下拉式按鈕可供選擇【全體開機】or【全體關機】</dd>
+          <dd>－ 點選【進階設定】按鈕，可為此環境進行編輯的動作</dd>
+	  <dt>－ 註：選擇【立即同步】，其環境底下所有成員將與主要環境硬碟進行同步作用</dt>
+	  <dd>－ 點選【刪除】按鈕，可將此環境進行刪除的動作</dd>
+        </dl>
+    </div>
+   </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>環境成員管理說明</h4>
+    </div>
+    <div class="panel-body">
+        <dl>
+         <dt>環境建置成員方式：</dt>
+          <dd>1. 點選上方的【員工管理】按鈕，選擇【員工環境建置】</dd>
+          <dd>2. 點選所屬部門的【加入成員】按鈕後，勾選欲加入者的帳號，按下建立，即可加入所屬環境並獲得該環境的虛擬機器</dd>
+          <dd>－也可點選下拉式選單篩選其他部門內的成員</dd>
+         <br>
+         <dt>管理員工虛擬機方式：：</dt>
+          <dd>1. 點選上方的【員工管理】按鈕，選擇【員工環境管理】</dd>
+          <dd>2. 點選所屬環境的【檢視成員】按鈕後</dd>
+          <dd>－ 點選【啟動】按鈕，可為此員工開起虛擬機</dd>
+          <dd>－ 點選【刪除】按鈕，可將此員工虛擬機進行刪除的動作</dd>
+	  <dd>－ 點選【還原】按鈕，可將此員工虛擬機進行還原的動作</dd>
+        </dl>
+    </div>
+   </div>
+
+   <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>虛擬機使用說明</h4>
+    </div>
+    <div class="panel-body">
+        <dl>
+         <dt>請依用戶的作業系統安裝相關軟體：</dt>
+          <dd>－ Linux用戶端請使用類似『yum install spice-client』安裝軟體</dd>
+          <dd>－ Windows用戶可下載spice官網提供之virt-viewer</dd>
+          <dd>－ <a href="download">軟體下載</a></dd>
+         <br>
+         <dt>啟動機器的方式如下：</dt>
+          <dd>1. 點選【開啟/關閉虛擬機】按鈕</dd>
+          <dd>2. 至少需要選擇一個『環境硬碟名稱』後才能夠點選『開啟機器』按鈕來替雲端主機開機</dd>
+          <dd>3. 預設是硬碟開機，可選擇光碟開機</dd>
+         <br>
+         <dt>Windows 用戶端【SPICE 的 virt-viewer】為例：</dt>
+          <dd>1. 安裝好了 virt-viewer 之後，直接在開始程式集裡面呼叫 『VirtViewer 』-->『Remote Viewer』</dd>
+          <dd>2. 在出現的視窗中，在網址列輸入『 spice://IP:port 』即可連線。</dd>
+          <dd>3. 由於 virt-viewer 支援的輸入參數較為豐富，故在內網連線到 gocloud 時，建議使用此機制。</dd>
+        </dl>
+    </div>
+   </div>
+
+</div>
+<% include footer.ejs %>
+

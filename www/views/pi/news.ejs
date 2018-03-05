@@ -1,0 +1,38 @@
+<% include header.ejs %>
+<div class="container">
+  <h2><span class="glyphicon glyphicon-pencil"></span><%= title %></h2>
+  <hr>
+  <% if(user.level<2) { %>
+  <div class="row">
+    <a href='news_add'><button type="button" class="btn btn-info pull-right">新增</button></a>
+  </div>
+  <% } %>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="col-md-6">主旨</th>
+          <th class="col-md-2">作者</th>
+          <th class="col-md-2">時間</th>
+          <th class="col-md-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% items.forEach(function(rows) { %>
+        <tr>
+          <td class="col-md-6"><%= rows.subject %></td>
+          <td class="col-md-2"><%= rows.name %></td>
+          <td class="col-md-2"><%= rows.post_date %></td>
+          <td class="col-md-2"><a href='news_content?id=<%= rows.nid %>'><button type="button" class="btn btn-default">查看內容 &raquo;</button></a>
+          <% if(user.level<2) { %><a href='news_update?id=<%= rows.nid %>'><button type="button" class="btn btn-default">修改 &raquo;</button></a></td><% } %>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
+  </div>
+    <!-- display form errors in a custom modal window -->
+    <% include modals/form-errors %>
+    <% include modals/alert %>
+    <% include modals/confirm %>
+</div>
+<% include footer.ejs %>

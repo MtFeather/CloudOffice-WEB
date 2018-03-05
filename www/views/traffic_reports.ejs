@@ -1,0 +1,43 @@
+<% include header.ejs %>
+<div class="container">
+  <h2><span class="glyphicon glyphicon-list-alt"></span><%= title %></h2>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">網路流量統計表</div>
+        <div class="panel-body">
+          <a href="mrtg/net.html" target="_blank"><img src="/mrtg/net-day.png" class="img-responsive"></a>
+        </div>
+      </div>
+    </div> 
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">CPU 使用率統計表</div>
+        <div class="panel-body">
+          <a href="mrtg/cpu.html" target="_blank"><img src="/mrtg/cpu-day.png" class="img-responsive"></a>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">記憶體使用率統計表</div>
+        <div class="panel-body">
+          <a href="mrtg/memory.html" target="_blank"><img src="/mrtg/memory-day.png" class="img-responsive"></a>
+        </div>
+      </div>
+    </div> 
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">硬碟讀寫統計表</div>
+        <div class="panel-body">
+          <a href="mrtg/disk.html" target="_blank"><img src="/mrtg/disk-day.png" class="img-responsive"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include footer.ejs %>
+

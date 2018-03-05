@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link  rel="stylesheet" href="/stylesheets/style1.css"/>
+<link  rel="stylesheet" href="/stylesheets/bootstrap.css"/>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/vendor/jquery.form.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+</head>
+<body class="mybody">
+
+<h1><%= message %></h1>
+<h2><%= error.status %></h2>
+<pre><%= error.stack %></pre>
+
+<% include footer.ejs %>
+

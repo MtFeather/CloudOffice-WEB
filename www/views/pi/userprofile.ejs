@@ -1,0 +1,52 @@
+<% include header.ejs %>
+<div class="container">
+    <h2><span class="glyphicon glyphicon-pencil"></span><%= title %></h2>
+    <h5 id="sub1"></h5>
+    <hr>
+    <% user = typeof(udata) != 'undefined' ? udata : { } %>
+    <input type="hidden" value="<%= user.id %>" id="userId"/>
+    <div id="account-form-container" class="col-md-6">
+      <form  id="account-form" class="form-signin" role="form" method="post">
+        <div class="form-group">
+          <label for="usr">帳號:</label>
+          <input id="user-tf" type="text" name="account" value="<%= user.account %>" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="pwd">密碼:</label>
+          <input id="pass-tf" type="password" name="passwd" value="" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="pwd">確認密碼:</label>
+          <input id="repass-tf" type="password" name="repasswd" value="" class="form-control">
+        </div>
+        <hr/>
+        <div class="form-group">
+          <label for="usr">姓名:</label>
+          <input id="name-tf" type="text" name="name" value="<%= user.name %>" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>性別:</label>
+          <label class="radio-inline"><input type="radio" name="sex" value="男" <%=  user.sex == "男" ? "checked" : "" %>/>男</label>
+          <label class="radio-inline"><input type="radio" name="sex" value="女" <%=  user.sex == "女" ? "checked" : "" %>/>女</label>
+        </div>
+        <div class="form-group">
+          <label>信箱:</label>
+          <input id="email-tf" type="text" name="email" value="<%= user.email %>" class="form-control"/>
+        </div>
+        <hr>
+        <div class="form-buttons pull-right">
+          <button type="button" id="account-form-btn1" class="btn btn-default"></button>
+          <button type="submit" id="account-form-btn2" class="btn btn-primary"></button>
+        </div>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+    <!-- display form errors in a custom modal window -->
+    <% include modals/form-errors %>
+    <% include modals/alert %>
+    <% include modals/confirm %>
+</div>
+<script src="/javascripts/views/userprofile.js"></script>
+<script src="/javascripts/controllers/userprofileController.js"></script>
+<script src="/javascripts/form-validators/accountValidator.js"></script>
+<% include footer.ejs %>

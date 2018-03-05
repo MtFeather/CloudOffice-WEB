@@ -1,0 +1,73 @@
+<% include header.ejs %>
+<div class="container">
+  <h2><span class="icon-managedhosting"></span><%= title %></h2>
+  <hr>
+  <div class="table-responsive">
+    <table id="dtable" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="col-md-2">環境名稱</th>
+          <th class="col-md-2">管理員</th>
+          <th class="col-md-2">狀態</th>
+          <th class="col-md-6"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% items.forEach(function(user) { %>
+        <tr>
+          <td class="col-md-2"><%= user.hd_name %></td>
+          <td class="col-md-2"><%= user.name %></td>
+          <td class="col-md-2">
+          <% if (user.disable == 1) { %>
+            <span class="label label-default">已停用</span>
+          <% } else if (user.hd_status < 2) { %>
+            <span class="label label-primary">正常</span>
+          <% } else if (user.hd_status == 2) { %>
+            <span class="label label-warning">複製中</span>
+          <% } else if (user.hd_status == 3) { %>
+            <span class="label label-danger">同步中</span>
+          <% } %>
+          </td>
+          <td class="col-md-6">
+          <% if (user.disable == 1) { %>
+            <button type="button" class="btn btn-primary" disabled>檢視成員</button>
+          <% } else { %>
+            <a href='hd_show?id=<%= user.oid %>'><button type="button" class="btn btn-primary">檢視成員</button></a>
+          <% } %>
+          </td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
+  </div>
+    <!-- display form errors in a custom modal window -->
+    <% include modals/form-errors %>
+    <% include modals/alert %>
+    <% include modals/confirm %>
+</div>
+<script>
+  $(document).ready(function() {
+    $('#dtable').DataTable({
+      language: {
+        "lengthMenu": "每頁顯示 _MENU_ 筆",
+         "zeroRecords": "沒有符合結果",
+         "info": "從 _START_ 到 _END_ /共 _TOTAL_ 筆",
+         "infoEmpty": "無任何資料",
+         "infoFiltered": "(過濾總筆數 _MAX_)",
+         "search": "搜尋:",
+         "searchPlaceholder": "搜尋關鍵字",
+         "paginate": {
+           "first":      "首頁",
+           "last":       "末頁",
+           "next":       "下頁",
+           "previous":   "上頁"
+         },
+      },
+      "columnDefs": [
+        { "searchable": false, "targets": [2,3] },
+        { "orderable": false, "targets": [3] }
+      ]
+    });
+  });
+</script>
+<% include footer.ejs %>

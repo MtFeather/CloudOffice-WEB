@@ -1,0 +1,55 @@
+#spice-area
+{
+    height: 100%;
+    width: 80%;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid #222222 1px;
+    -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+.spice-screen
+{
+    min-height: 600px;
+    height: 100%;
+    margin: 10px;
+    padding: 0;
+    background-color: #333333;
+}
+.spice-message {
+    width: 700px;
+    height: 50px;
+    overflow: auto;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    background-color: #efefef;
+    border: solid #c3c3c3 2px;
+    font-size: 8pt;
+    line-height: 1.1em;
+    font-family: 'Andale Mono', monospace;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+.spice-message p {
+    margin-bottom: 0em;
+    margin-top: 0em;
+}
+.spice-message-warning {
+    color: orange;
+}
+.spice-message-error {
+    color: red;
+}
+

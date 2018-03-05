@@ -1,0 +1,16 @@
+#!/bin/bash
+LANG=C
+disktemp=$( sar -d 1 1 | grep  'dev8-0' | grep -v '平均時間' | awk '{print $4,$5}'  )
+disktemp1=$( echo ${disktemp} | awk '{print $1}' )
+disktemp2=$( echo ${disktemp} | awk '{print $2}' )
+diskrd=$( echo "scale=5;${disktemp1}/2" | bc  )
+diskwr=$( echo "scale=5;${disktemp2}/2" | bc  )
+UPtime=`/usr/bin/uptime | awk '{print $3""$4""$5}'`
+
+#echo $disktemp1
+#echo $disktemp2
+
+echo $diskrd
+echo $diskwr
+echo $UPtime
+hostname

@@ -1,0 +1,40 @@
+<% include header.ejs %>
+<div class="container">
+ <h1><span class="glyphicon glyphicon-book"></span><%= title %></h1>
+  <hr>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>軟體下載</h4>
+    </div>
+    <div class="panel-body">
+	<dl>
+	 <dt>由本系統提供下載 virt-viewer 5.0 版 (for Windows)：</dt>
+          <dd>－<a href="downlods/virt-viewer-x64-5.0.msi">用戶端Windows為64位元版本</a></dd>
+          <dd>－<a href="downlods/virt-viewer-x86-5.0.msi">用戶端Windows為32位元版本</a></dd>
+	 <br>
+	 <dt>如Windows需要使用本網頁一鍵啟動Remote-viewer，請下載登入檔執行使用：</dt>
+          <dd>5.0版本：</dd>
+          <dd>－執行檔：<a href="downlods/virt-viewer-x64-5.0.reg">virt-viewer-x64-5.0.reg</a> －卸載檔：<a href="downlods/virt-viewer-x64-5.0-delete.reg">virt-viewer-x64-5.0-delete.reg</a></dd>
+          <dd>－執行檔：<a href="downlods/virt-viewer-x86-5.0.reg">virt-viewer-x86-5.0.reg</a> －卸載檔：<a href="downlods/virt-viewer-x64-5.0-delete.reg">virt-viewer-x86-5.0-delete.reg</a></dd>
+          <dd>6.0版本:</dd>
+          <dd>－執行檔：<a href="downlods/virt-viewer-x64-6.0.reg">virt-viewer-x64-6.0.reg</a> －卸載檔：<a href="downlods/virt-viewer-x64-6.0-delete.reg">virt-viewer-x64-5.0-delete.reg</a></dd>
+          <dd>－執行檔：<a href="downlods/virt-viewer-x86-6.0.reg">virt-viewer-x86-6.0.reg</a> －卸載檔：<a href="downlods/virt-viewer-x86-6.0-delete.reg">virt-viewer-x86-5.0-delete.reg</a></dd>
+          <dd>3.1版本:</dd>
+          <dd>－執行檔：<a href="downlods/virt-viewer-x64-3.1.reg">virt-viewer-x64-3.1.reg</a> －卸載檔：<a href="downlods/virt-viewer-x64-3.1-delete.reg">virt-viewer-x64-3.1-delete.reg</a></dd>
+          <dd>－執行檔：<a href="downlods/virt-viewer-x86-3.1.reg">virt-viewer-x86-3.1.reg</a> －卸載檔：<a href="downlods/virt-viewer-x86-3.1-delete.reg">virt-viewer-x86-3.1-delete.reg</a></dd>
+	 <br>
+         <dt>&copy; SPICE 官網提供 (<a href="http://spice-space.org/download.html" target="_blank"><font color="blue">http://spice-space.org/download.html</font></a>或<a href="http://virt-manager.org/download/" target="_blank"><font color="blue">http://virt-manager.org/download/</font></a>) (for Windows and Linux)：</dt>
+      	  <dd>－請下載『 virt-viewer Windows installer 』。至於版本，請依據您的作業系統而定。</dd>
+      	  <dd>－同頁面中的『 Windows guest tools - spice-guest-tools-0.1.exe 』是給虛擬機器的系統用的，並非是用戶端程式喔！</dd>
+	 <br>
+	 <dl>
+         <dt>&rArr; 若您的用戶端系統為 Linux 時，且為 Red Hat 系列 (如 CentOS, Fedora 等)，可直接安裝 spice-gtk-tools 軟體，再透過 spicy 這個軟體來連線即可。</dt>
+	 <br>
+         <dt>&rArr; 註：virt-viewer 規範用戶端連線到伺服器端的頻寬至少要達 10Mbps 才有較佳的連線品質。 經本團隊測試，若連線頻寬未達 10Mbps 時，連線畫面時常斷斷續續。故使用 cloud office 系統提供的預設連線軟體，在低頻寬的模式底下，會有較佳的顯示狀態。</dt>
+	 <br>
+      	</dl>
+    </div>
+  </div>
+</div>
+<% include footer.ejs %>
+

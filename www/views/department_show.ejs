@@ -1,0 +1,80 @@
+<% include header.ejs %>
+<div class="container">
+  <h2><span class="icon-infographic"></span><%= title %></h2>
+  <hr>
+  <div class="row">
+    <div class="col-md-4 pull-right">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" class="form-control" id="myInput" onkeyup="mySearch()" placeholder="搜尋環境名稱/管理員">
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table id="myTable" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>環境名稱</th>
+          <th>管理員</th>
+          <th>硬碟容量</th>
+          <th>CPU</th>
+          <th>記憶體</th>
+          <th>還原功能</th>
+          <th>狀態</th>
+          <th>建立時間</th>
+          <th>連線時間</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% items.forEach(function(rows) { %>
+        <tr>
+          <td><%= rows.hd_name %></td>
+          <td><%= rows.name %></td>
+          <td><%= rows.hd_size %>G</td>
+          <td><%= rows.hd_cpu %>顆</td>
+          <td><%= rows.hd_ram %>G</td>
+          <td><%= rows.restore %></td>
+          <td>
+          <% if (rows.disable == 1) { %>
+            <span class="label label-default">已停用</span>
+          <% } else if (rows.hd_status < 2) { %>
+            <span class="label label-primary">正常</span>
+          <% } else if (rows.hd_status == 2) { %>
+            <span class="label label-warning">複製中</span>
+          <% } else if (rows.hd_status == 3) { %>
+            <span class="label label-danger">同步中</span>
+          <% } %>
+          </td>
+          <td><%= rows.create_date %></td>
+          <td><%= rows.last_date %></td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
+  </div>
+    <!-- display form errors in a custom modal window -->
+    <% include modals/form-errors %>
+    <% include modals/alert %>
+    <% include modals/confirm %>
+</div>
+<script>
+  function mySearch() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td0 = tr[i].getElementsByTagName("td")[0];
+      td1 = tr[i].getElementsByTagName("td")[1];
+      if (td0) {
+        if (td0.innerHTML.toUpperCase().indexOf(filter) > -1 || td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
+<% include footer.ejs %>

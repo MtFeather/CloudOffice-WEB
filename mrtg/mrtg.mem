@@ -1,0 +1,19 @@
+#!/bin/bash
+#PATH=/bin:/sbin:/usr/bin:/usr/sbin
+#source "/home/JHong/www_scripts/source/source.sh"
+
+LANG=C
+memtemp=$( sar -r | grep -v 'Average' | tail -n 1 | awk '{print $2, $3, $6}' )
+memtemp1=$( echo ${memtemp} | awk '{print $1}' )
+memtemp2=$( echo ${memtemp} | awk '{print $2}' )
+memtemp3=$( echo ${memtemp} | awk '{print $3}' )
+mem_state=$(( $memtemp2 * 100 / ( $memtemp1 + $memtemp2) ))
+#echo $mem_state
+mem_nocache=$(( $mem_state - ($memtemp3 * 100 / ( $memtemp1 + $memtemp2)) ))
+#echo $mem_nocache
+UPtime=`/usr/bin/uptime | awk '{print $3""$4""$5""$6}'`
+echo $mem_nocache           #可用容量
+echo $mem_state             #已用
+echo $UPtime
+hostname
+

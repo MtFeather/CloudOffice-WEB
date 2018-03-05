@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= title %></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link  rel="stylesheet" href="/stylesheets/bootstrap.min.css"/>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/stylesheets/style.css"/>
+<link rel="stylesheet" type="text/css" href="/stylesheets/component.css" />
+</head>
+<body>
+  <div class="demo-1">
+    <div id="large-header" class="large-header">
+      <canvas id="demo-canvas" oncontextmenu="return false;"></canvas>
+      <% if (register == 'no') { %>
+        <div class="center">
+          <div class="well" style="width: 400px;">
+            <div class="row"> 
+              <div class="col-md-6 col-md-offset-3">
+                <img class="img-responsive" src="images/lock.png">
+              </div>
+            </div>
+            <div class="row">
+               <h3 style="color: white; text-align: center;">系統目前不開放會員註冊功能...</h3>
+            </div>
+          </div>
+        </div>
+      <% } else { %>
+        <% include account %>
+      <% } %>
+    </div>
+  </div>
+  <% include modals/alert %>
+  <script src="/vendor/jquery-2.2.3.min.js"></script>
+  <script src="/vendor/jquery.form.min.js"></script>
+  <script src="/vendor/bootstrap.min.js"></script>
+  <script src="/javascripts/views/signup.js"></script>
+  <script src="/javascripts/controllers/signupController.js"></script>
+  <script src="/javascripts/form-validators/accountValidator.js"></script>
+  <script src="/javascripts/TweenLite.min.js"></script>
+  <script src="/javascripts/EasePack.min.js"></script>
+  <script src="/javascripts/rAF.js"></script>
+  <script src="/javascripts/demo-1.js"></script>
+</body>
+</html>

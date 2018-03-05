@@ -1,0 +1,59 @@
+<% include header.ejs %>
+<link rel="stylesheet" href="/stylesheets/whhg.css"/>
+<link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"/>
+<script src="/javascripts/jquery-ui.min.js"></script>
+<div class="container">
+  <h2><span class="glyphicon glyphicon-copy"></span><%= title %></h2>
+  <hr>
+  <div id="Tradition" class="">
+  <form  class="form-horizontal" id="copy-form" role="form" method="post">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="hdname">環境電腦名稱:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="hdname-tf" name="hdname" placeholder="請輸入環境電腦名稱">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="department">複製部門:</label>
+      <div class="col-sm-4">
+        <select class="form-control" name="dep" id="dep-tf">
+          <option value="">請選擇要複製的部門</option>
+          <% dep.forEach(function(rows) {%>
+          <option value="<%= rows.oid %>"><%= rows.hd_name %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="owner">部門擁有者:</label>
+      <div class="col-sm-4">
+        <% if(user.level == 0) {%>
+        <select class="form-control" name="owner">
+          <% items.forEach(function(rows) {%>
+          <option value='<%= rows.eid %>' <%=  rows.name == user.name ? "selected" : "" %> >(<%= rows.lv %>)<%= rows.name %></option>
+          <% }) %>
+        </select>
+        <% } else { %>
+        <div style="margin-top: 9px;"><%= user.name %></div>
+        <input value="<%= user.id %>" name="owner" type="hidden">
+        <% } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="reduction">還原卡功能:</label>
+      <div class="col-sm-2">
+        <label class="radio-inline"><input type="radio" name="reduction" value="1"/>是</label>
+        <label class="radio-inline"><input type="radio" name="reduction" value="0" checked="checked"/>否</label>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+    <button type="submit" class="btn btn-primary" id="Tradition-submit">開始建立</button>
+  </form>
+  </div>
+</div>
+<% include modals/form-errors %>
+<% include modals/alert %>
+<script src="/javascripts/views/vm.js"></script>
+<script src="/javascripts/controllers/virtualController.js"></script>
+<script src="/javascripts/form-validators/virtualValidator.js"></script>
+<% include footer.ejs %>
