@@ -23,7 +23,7 @@
                 <td><%= result.version %></td>
               </tr>
               <tr>
-                <td>開放使用者登入(在系統維護時可暫時關閉，主管/管理員依舊可登入)</td>
+                <td>開放使用者登入(在系統維護時可暫時關閉，管理員/主管依舊可登入)</td>
                 <td>
                   <label class="radio-inline">
                     <input type="radio" name="login" value="yes" <%=  result.login == "yes" ? "checked" : ""  %>>是
@@ -34,7 +34,7 @@
                 </td>
               </tr>
               <tr>
-                <td>開放使用者註冊(目前所有新註冊者均需經教師/管理員啟動方可使用)</td>
+                <td>開放使用者註冊(目前所有新註冊者均需經管理員/教師啟動方可使用)</td>
                 <td>
                   <label class="radio-inline">
                     <input type="radio" name="register" value="yes" <%=  result.register == "yes" ? "checked" : ""  %>>是
