@@ -28,7 +28,7 @@ function delalluser(){
  }
 };
 
-function set(oid,hd_name,cpu,ram,eid,restore,limit_ram){
+function set(oid,name,hd_name,cpu,ram,eid,restore,limit_ram){
   $('#oid').val(oid);
   $('#hdname-h2').html(hd_name);
   $('#hdname-tf').val(hd_name);
@@ -42,7 +42,7 @@ function set(oid,hd_name,cpu,ram,eid,restore,limit_ram){
   }
   $('#ram option[value='+ram+']').attr('selected','selected');
   $('#owner').val(eid);
-  $('#user').text(eid);
+  $('#user').text(name);
   if(restore==1){
     document.getElementById("reduction1").checked = true;
   } else {

@@ -200,25 +200,28 @@ exports.checkVMstatus = function(id, ip, callback){
 
 exports.vmStatus = function(id, callback){
   var connection = mysql.createConnection(db_option);
-  var query ="SELECT hd_name,hd_status,eid FROM ori_xml WHERE eid = ? AND hd_status = 1";
-  connection.query(query,[id], function(err, stat){
-    if(stat[0] != undefined){
-      stat[0].hd_name = '(原始碟)'+stat[0].hd_name;
-      var query ="SELECT user_port,broadcast FROM user_xml WHERE eid = ?";
-      connection.query(query,[id], function(err, port){
-        connection.end();
-        callback(stat[0].hd_name,port[0].user_port,stat[0].eid,port[0].broadcast);
-      });
-    } else {
-      var query ="SELECT hd_name,ori_xml.eid FROM ori_xml,back_img WHERE back_img.oid=ori_xml.oid AND back_img.eid = ? AND back_status = 1";
-      connection.query(query,[id], function(err, stat){
+  var query ="SELECT option FROM system_control WHERE project = 'usb'";
+  connection.query(query, function(err, usb){
+    var query ="SELECT hd_name,hd_status,eid FROM ori_xml WHERE eid = ? AND hd_status = 1";
+    connection.query(query,[id], function(err, stat){
+      if(stat[0] != undefined){
+        stat[0].hd_name = '(原始碟)'+stat[0].hd_name;
         var query ="SELECT user_port,broadcast FROM user_xml WHERE eid = ?";
         connection.query(query,[id], function(err, port){
           connection.end();
-          callback(stat[0].hd_name,port[0].user_port,stat[0].eid,port[0].broadcast);
+          callback(stat[0].hd_name,port[0].user_port,stat[0].eid,port[0].broadcast,usb);
         });
-      });
-    }
+      } else {
+        var query ="SELECT hd_name,ori_xml.eid FROM ori_xml,back_img WHERE back_img.oid=ori_xml.oid AND back_img.eid = ? AND back_status = 1";
+        connection.query(query,[id], function(err, stat){
+          var query ="SELECT user_port,broadcast FROM user_xml WHERE eid = ?";
+          connection.query(query,[id], function(err, port){
+            connection.end();
+            callback(stat[0].hd_name,port[0].user_port,stat[0].eid,port[0].broadcast,usb[0].option);
+          });
+        });
+      }
+    });
   });
 };
 

@@ -8,16 +8,16 @@
   <div id="Tradition" class="">
   <form  class="form-horizontal" id="copy-form" role="form" method="post">
     <div class="form-group">
-      <label class="control-label col-sm-2" for="hdname">環境電腦名稱:</label>
+      <label class="control-label col-sm-2" for="hdname">課程電腦名稱:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="hdname-tf" name="hdname" placeholder="請輸入環境電腦名稱">
+        <input type="text" class="form-control" id="hdname-tf" name="hdname" placeholder="請輸入課程電腦名稱">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="department">複製部門:</label>
+      <label class="control-label col-sm-2" for="department">複製課程:</label>
       <div class="col-sm-4">
         <select class="form-control" name="dep" id="dep-tf">
-          <option value="">請選擇要複製的部門</option>
+          <option value="">請選擇要複製的課程</option>
           <% dep.forEach(function(rows) {%>
           <option value="<%= rows.oid %>"><%= rows.hd_name %></option>
           <% }) %>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="owner">部門擁有者:</label>
+      <label class="control-label col-sm-2" for="owner">課程擁有者:</label>
       <div class="col-sm-4">
         <% if(user.level == 0) {%>
         <select class="form-control" name="owner">

@@ -18,7 +18,6 @@ do
 		if [ -z ${noconnect} ]; then
                 	if [ "${last_date}" != "0000-00-00 00:00:00" ]; then
 				if [ "${limit_epoch}" -lt "${now_epoch}" ]; then
-					echo "${account}: close vm"
 					sudo iptables -D INPUT -p tcp -m tcp -s ${ip}/32 --dport ${port} -j ACCEPT
 					sudo iptables -D INPUT -p tcp -m tcp -s ${ip}/32 --dport $(( ${port}-1000 )) -j ACCEPT
 					sudo iptables -D INPUT -p tcp -m tcp -s ${ip}/32 --dport $(( ${port}-2000 )) -j ACCEPT
