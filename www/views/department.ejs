@@ -6,7 +6,7 @@
     <div class="col-md-4 pull-right">
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-        <input type="text" class="form-control" id="myInput" onkeyup="mySearch()" placeholder="搜尋環境名稱/管理員">
+        <input type="text" class="form-control" id="myInput" onkeyup="mySearch()" placeholder="搜尋課程名稱/管理員">
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
           <th>
             <span class="glyphicon glyphicon-eye-open"></span>
           </th>
-          <th>環境名稱</th>
+          <th>課程名稱</th>
           <th>管理員</th>
           <th>預設開機</th>
           <th class="col-md-3">置換光碟</th>
@@ -141,7 +141,7 @@
       	          <li onclick="stop(<%= rows.oid %>)"><a href="#">全部關機</a></li>
     	        </ul>
 	      </div>
-              <button type="button" class="btn btn-success"  data-tooltip="tooltip" title="進階設定：設定硬碟配備" data-toggle="modal" data-target="#myModal" onclick="set('<%= rows.oid %>','<%= rows.hd_name %>','<%= rows.hd_cpu %>','<%= rows.hd_ram %>','<%= rows.eid %>','<%= rows.restore %>','<%= ram %>')"><span class="glyphicon glyphicon-cog"></span></button>
+              <button type="button" class="btn btn-success"  data-tooltip="tooltip" title="進階設定：設定硬碟配備" data-toggle="modal" data-target="#myModal" onclick="set('<%= rows.oid %>','<%= rows.name %>','<%= rows.hd_name %>','<%= rows.hd_cpu %>','<%= rows.hd_ram %>','<%= rows.eid %>','<%= rows.restore %>','<%= ram %>')"><span class="glyphicon glyphicon-cog"></span></button>
               <% if(rows.back_status==1 || rows.hd_status=='1') { %>
 	      <button type="button" class="btn btn-warning" disabled><span class="icon-cloudaltsync"></span></button>
 	      <button type="button" class="btn btn-danger" disabled><span class="glyphicon glyphicon-trash"></span></button>
@@ -168,7 +168,7 @@
 	  <form  class="form-horizontal" id="department-form" action="department_setting" role="form" method="post">
     	    <div class="form-group">
 	      <input type="hidden" value="" id="oid" name="oid">
-	      <label class="control-label col-sm-4" for="hdname">環境電腦名稱:</label>
+	      <label class="control-label col-sm-4" for="hdname">課程電腦名稱:</label>
 	      <div class="col-sm-6">
 	        <input type="text" class="form-control" id="hdname-tf" name="hdname" value="">
 	      </div>
@@ -192,7 +192,7 @@
 	      </div>
 	    </div>
 	    <div class="form-group">
-	      <label class="control-label col-sm-4" for="owner">部門擁有者:</label>
+	      <label class="control-label col-sm-4" for="owner">課程擁有者:</label>
 	      <div class="col-sm-4">
 	        <% if(user.level == 0) {%>
 	        <select class="form-control" name="owner" id="owner">

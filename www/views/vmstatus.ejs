@@ -63,7 +63,7 @@
   <div class="col-md-8 col-md-offset-2">
     <div class="row">
       <div class="panel panel-info">
-        <div class="panel-heading">環境名稱:<%= vmname %></div>
+        <div class="panel-heading">課程名稱:<%= vmname %></div>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@
       <div class="panel panel-info">
         <div class="panel-heading">系統提供的功能</div>
         <div class="panel-body">
-          <label>個人雲資料硬碟:</label>以提供8G雲端硬碟<br/>
+          <label>個人雲資料硬碟:</label><%= (usb == 'yes') ? '以提供8G雲端硬碟' : '已停用' %><br/>
         </div>
       </div>
       <div class="panel panel-info">

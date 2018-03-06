@@ -56,7 +56,7 @@ exports.comment_manager = function(req, res){
     res.redirect('/');
   } else {
     res.render( 'comment_manager', {
-      title : '主管使用說明',
+      title : '使用說明',
       user : req.session.user,
     });
   }
@@ -262,7 +262,7 @@ exports.user = function(req, res){
   } else {
     UM.showUsers(function(result){
     res.render('user', {
-      title : '員工管理',
+      title : '使用者管理',
       user : req.session.user,
       items : result
     });
@@ -314,7 +314,7 @@ exports.user_verify_form = function(req, res){
    } else {
      AM.verifyAccount(function(result){
        res.render('user_verify', {
-         title  : '員工審核',
+         title  : '使用者審核',
          user   : req.session.user,
          items : result
        });
