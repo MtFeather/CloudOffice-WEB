@@ -29,13 +29,13 @@
         <li><a href="news">最新資訊</a></li>
         <li><a href="vmstatus">開啟/關閉虛擬機</a></li>
         <% if(user.level<2) { %>
-	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">課程管理<span class="caret"></span></a>
+	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">環境管理<span class="caret"></span></a>
 	  <ul class="dropdown-menu">
-            <li><a href="department_show">課程資訊</a></li>
-            <li><a href="department">課程管理</a></li>
+            <li><a href="department_show">環境資訊</a></li>
+            <li><a href="department">環境管理</a></li>
             <li role="presentation" class="divider"></li>
-	    <li class="dropdown-header">課程建置</li> 
-	    <li><a href="original_add">新增課程硬碟</a></li>
+	    <li class="dropdown-header">環境建置</li> 
+	    <li><a href="original_add">新增環境硬碟</a></li>
             <li><a href="original_copy">新增複製硬碟</a></li>
           </ul>
 	</li>
@@ -46,8 +46,8 @@
             <% if(user.level==0) { %><li><a href="user_verify">使用者審核</a></li><% } %>
             <% if(user.level==0) { %><li><a href="register">使用者新增</a></li><% } %>
     	    <% if(user.level==0) { %><li><a href="user">使用者資訊查看/管理</a></li><% } %>
-            <% if(user.level<2) { %><li><a href="hd_create">學生課程建置</a></li><% } %>
-            <% if(user.level<2) { %><li><a href="hd_info">學生課程管理</a></li><% } %>
+            <% if(user.level<2) { %><li><a href="hd_create">員工環境建置</a></li><% } %>
+            <% if(user.level<2) { %><li><a href="hd_info">員工環境管理</a></li><% } %>
           </ul>
 	</li>
 	<% if(user.level==0) { %>
