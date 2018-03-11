@@ -25,7 +25,7 @@
             <td>選擇加入員工:</td>
             <td>
               <div class="col-md-4">
-                <select class="form-control" name="oid" onchange="submit();" <%= (items[0].hd_status > 1 || items[0].disable == 1) ? 'disabled' : '' %>>        
+                <select class="form-control" name="oid" onchange="submit();">        
                   <option value="0">全部員工</option>
                   <% hd_name.forEach(function(hd_name) { %>
                   <option value="<%= hd_name.oid %>" <%=  hd_name.oid == nowoid ? "selected" : "" %> ><%= hd_name.hd_name %></option>
@@ -48,7 +48,7 @@
           </tr>  
           <tr>
             <td align="center" colspan="2">
-            <% if (items[0].hd_status > 1 || items[0].disable == 1 ) { %>
+            <% if (items[0].hd_status > 1 ) { %>
               <input type="button" class="btn btn-info" value="全選" disabled/>
               <input type="button" class="btn btn-warning" value="全取消" disabled/>
               <input type="button" class="btn btn-success" name="sub" value="建立" disabled/>

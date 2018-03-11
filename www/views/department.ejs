@@ -42,7 +42,7 @@
             <% } %>
           </td>
           <td>
-          <% if (rows.disable == 1) { %>
+          <% if (rows.hd_status > 1) { %>
             <%= rows.hd_name %>
           <% } else { %>
             <a href="hd_show?id=<%= rows.oid %>" data-tooltip="tooltip" title="查看此員工狀態"><%= rows.hd_name %></a>
@@ -55,7 +55,7 @@
             <% } else { %>
             <div class="form-group">
               <div>
-                <select class="form-control" name="boot" onChange="cdromchange(this.value, <%= rows.oid %>)" <%= (rows.disable == 1) ? 'disabled' : '' %>>
+                <select class="form-control" name="boot" onChange="cdromchange(this.value, <%= rows.oid %>)" <%= (rows.hd_status > 1) ? 'disabled' : '' %>>
                   <option value="hd"  id="hd" selected>硬碟</option>
                   <option value="cdrom"  id="cdrom">光碟</option>
                 </select>
@@ -93,7 +93,7 @@
           </td>
           <td>
           <% if (rows.disable == 1) { %>
-            <span class="label label-default">已停用</span>
+            <span class="label label-default">隱藏</span>
           <% } else if (rows.hd_status == 0) { %>
             <span class="label label-primary">關機</span>
 	  <% } else if (rows.hd_status == 1) { %>
@@ -112,7 +112,7 @@
             <% } %>
           </td>
           <td>
-            <% if(rows.hd_status > 1 || rows.disable == 1) {　%>
+            <% if(rows.hd_status > 1) {　%>
               <button type="button" class="btn btn-info" disabled>啟動</button>
               <div class="btn-group">
                 <button type="button" class="btn btn-primary" disabled>全部開機</button>

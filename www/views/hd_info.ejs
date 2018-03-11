@@ -19,7 +19,7 @@
           <td class="col-md-2"><%= user.name %></td>
           <td class="col-md-2">
           <% if (user.disable == 1) { %>
-            <span class="label label-default">已停用</span>
+            <span class="label label-default">隱藏</span>
           <% } else if (user.hd_status < 2) { %>
             <span class="label label-primary">正常</span>
           <% } else if (user.hd_status == 2) { %>
@@ -29,7 +29,7 @@
           <% } %>
           </td>
           <td class="col-md-6">
-          <% if (user.disable == 1) { %>
+          <% if (user.hd_status > 1) { %>
             <button type="button" class="btn btn-primary" disabled>檢視成員</button>
           <% } else { %>
             <a href='hd_show?id=<%= user.oid %>'><button type="button" class="btn btn-primary">檢視成員</button></a>

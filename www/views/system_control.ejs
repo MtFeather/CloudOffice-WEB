@@ -115,35 +115,23 @@
       </form>
     </div>
     <div id="department" class="tab-pane fade">
-      <h4 class="text-danger"><span class="glyphicon glyphicon-info-sign"></span><b>停用環境，有此環境硬碟者，將無法選擇此環境開機</b></h4>
+      <h4 class="text-danger"><span class="glyphicon glyphicon-info-sign"></span><b>隱藏環境，有此環境硬碟者，將無法選擇此環境開機</b></h4>
       <form id="department-form" action="department_control" method="post">
         <div class="table-responsive">
           <table id="dtable" class="table table-striped table-hover">
             <thead>
               <tr>
                 <th class="col-md-1"><input type="checkbox" id="select-all"></th>
-                <th class="col-md-2">環境名稱</th>
-                <th class="col-md-2">管理員</th>
-                <th class="col-md-7"></th>
+                <th>環境名稱</th>
+                <th>管理員</th>
               </tr>
             </thead>
             <tbody>
                 <% department.forEach(function(rows) { %>
                 <tr>
-                  <td><input type="checkbox" name="oid[]" value="<%= rows.oid %>"  <%= (rows.disable == 1) ? 'checked' : ''  %> <%= (rows.hd_status < 4 && rows.hd_status != 0 || rows.back_status == 1 ) ? 'disabled' : '' %>></td>
+                  <td><input type="checkbox" name="oid[]" value="<%= rows.oid %>"  <%= (rows.disable == 1) ? 'checked' : ''  %>></td>
                   <td><%= rows.hd_name %></td>
                   <td><%= rows.name %></td>
-                  <td>
-                  <% if (rows.hd_status == 1) { %>
-                    此環境原始硬碟未關閉，<a href="department">請點此進行關閉</a>
-                  <% } else if (rows.back_status == 1) { %>
-                    此環境員工硬碟未關閉，<a href="hd_show?id=<%= rows.oid %>">請點此進行關閉</a>
-                  <% } else if (rows.hd_status == 2) { %>
-                    此環境正在複製中，請等待複製完畢
-                  <% } else if (rows.hd_status == 3) { %>
-                    此環境正在同步中，請等待同步完畢
-                  <% } %>
-                  </td>
                 </tr>
                 <% }) %>
             </tbody>
@@ -178,8 +166,8 @@
          }
       },
       "columnDefs": [
-        { "searchable": false, "targets": [0,3] },
-        { "orderable": false, "targets": [0,3] }
+        { "searchable": false, "targets": [0] },
+        { "orderable": false, "targets": [0] }
       ],
       "order": [[1, 'desc']]
     });

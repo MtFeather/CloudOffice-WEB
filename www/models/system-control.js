@@ -78,7 +78,7 @@ exports.system_setting = function(login, register, ram, disk, time, usb, callbac
 
 exports.department_control = function(callback){
   var connection = mysql.createConnection(db_option);
-  var query ="SELECT ori_xml.oid,hd_name,name,hd_status,disable,back_status FROM empdata,user_xml,ori_xml LEFT JOIN back_img ON back_status = 1 AND back_img.oid=ori_xml.oid WHERE ori_xml.eid = empdata.eid GROUP BY ori_xml.oid ORDER BY ori_xml.oid";
+  var query ="SELECT ori_xml.oid,hd_name,name,disable FROM empdata,ori_xml WHERE ori_xml.eid = empdata.eid";
   connection.query(query, function(err,result){
     connection.end();
     callback(result);
