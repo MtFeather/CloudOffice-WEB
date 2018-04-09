@@ -209,7 +209,7 @@ exports.vmStatus = function(id, callback){
         var query ="SELECT user_port,broadcast FROM user_xml WHERE eid = ?";
         connection.query(query,[id], function(err, port){
           connection.end();
-          callback(stat[0].hd_name,port[0].user_port,stat[0].eid,port[0].broadcast,usb);
+          callback(stat[0].hd_name,port[0].user_port,stat[0].eid,port[0].broadcast,usb[0].option);
         });
       } else {
         var query ="SELECT hd_name,ori_xml.eid FROM ori_xml,back_img WHERE back_img.oid=ori_xml.oid AND back_img.eid = ? AND back_status = 1";

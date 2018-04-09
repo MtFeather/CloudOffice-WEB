@@ -67,24 +67,29 @@ exports.login_form = function(req, res){
 };
 
 exports.login_submit = function(req, res){
-  AM.checkLogin(function(login){
-    AM.manualLogin(req.body['account'], req.body['passwd'], function(err, result){
-      if (!result){
-        res.status(400).send(err);
-      } else if (result == 'not-verify') {
-        res.status(200).send('not-verify');
-      } else if (login == 'no' && result[0].level > 1) {
-        res.status(200).send('close-login');
-      } else {
-        req.session.user = {id:result[0].eid, account:result[0].account, name:result[0].name, sex:result[0].sex, email:result[0].email, level:result[0].level};
-        if (req.body['remember-me'] == 'true'){
-         res.cookie('account', result[0].account, { maxAge: 1296000000 });
-         res.cookie('passwd', result[0].password, { maxAge: 1296000000 });
-        }
-        res.status(200).send('ok');
-      }  
+  if(!req.body['account'] || !req.body['passwd']){
+    console.log(req.body['account'], req.body['passwd']);
+    res.status(400).send(err);
+  } else {
+    AM.checkLogin(function(login){
+      AM.manualLogin(req.body['account'], req.body['passwd'], function(err, result){
+        if (!result){
+          res.status(400).send(err);
+        } else if (result == 'not-verify') {
+          res.status(200).send('not-verify');
+        } else if (login == 'no' && result[0].level > 1) {
+          res.status(200).send('close-login');
+        } else {
+          req.session.user = {id:result[0].eid, account:result[0].account, name:result[0].name, sex:result[0].sex, email:result[0].email, level:result[0].level};
+          if (req.body['remember-me'] == 'true'){
+           res.cookie('account', result[0].account, { maxAge: 1296000000 });
+           res.cookie('passwd', result[0].password, { maxAge: 1296000000 });
+          }
+          res.status(200).send('ok');
+        }  
+      });
     });
-  });
+  }
 };
 
 exports.logout = function(req, res){

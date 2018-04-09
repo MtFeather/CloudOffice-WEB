@@ -41,9 +41,9 @@ exports.dep_vmstatus = function(callback){
               exec('sudo iptables -D INPUT -s '+vm.user_ip+' -p tcp -m tcp --dport '+(vm.user_port-2000)+' -j ACCEPT',function (error, stdout, stderr){
                 exec('sudo iptables -D INPUT -s '+vm.user_ip+' -p tcp -m tcp --dport '+(vm.user_port-3000)+' -j ACCEPT',function (error, stdout, stderr){
                   exec('sudo iptables -D INPUT -p tcp -m tcp --dport '+(vm.user_port-4000)+' -j ACCEPT',function (error, stdout, stderr){
-                    exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm[0].user_port-1000), function (error, pid, stderr){
-                      exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm[0].user_port-2000), function (error, vncpid, stderr){
-                        exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm[0].user_port-1000), function (error, boardpid, stderr){
+                    exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-1000), function (error, pid, stderr){
+                      exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-2000), function (error, vncpid, stderr){
+                        exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-4000), function (error, boardpid, stderr){
                           var query ="UPDATE ori_xml SET hd_status = 0, last_date = 0 WHERE eid = ? AND oid = ?";
                           connection.query(query,[vm.eid,vm.oid], function(err){
                             var query ="UPDATE user_xml SET oid = 0,user_port = 0,user_ip = 0,user_cdrom = 0,broadcast = 0 WHERE eid = ?";
@@ -179,21 +179,15 @@ exports.departments_close = function(oid, callback){
             exec('sudo iptables -D INPUT -s '+vm.user_ip+' -p tcp -m tcp --dport '+(vm.user_port-2000)+' -j ACCEPT',function (error, stdout, stderr){
               exec('sudo iptables -D INPUT -s '+vm.user_ip+' -p tcp -m tcp --dport '+(vm.user_port-3000)+' -j ACCEPT',function (error, stdout, stderr){
                 exec('sudo iptables -D INPUT -p tcp -m tcp --dport '+(vm.user_port-4000)+' -j ACCEPT',function (error, stdout, stderr){
-                  exec('sudo lsof -i | grep '+(vm.user_port-1000)+' | awk \'{print $2}\'', function (error, pid, stderr){
-                    exec('sudo kill -9 '+pid, function (){
-                      exec('sudo lsof -i | grep '+(vm.user_port-2000)+' | awk \'{print $2}\'', function (error, vncpid, stderr){
-                        exec('sudo kill -9 '+vncpid, function (){
-                          exec('sudo lsof -i | grep '+(vm.user_port-4000)+' | awk \'{print $2}\'', function (error, boardpid, stderr){
-                            exec('sudo kill -9 '+boardpid, function (){
-                              var query ="UPDATE back_img SET back_status = 0,last_date = 0 WHERE eid = ? AND oid = ?";
-                              connection.query(query,[vm.eid,oid], function(err){
-                                var query ="UPDATE user_xml SET oid = 0,user_port = 0,user_ip = 0,user_cdrom = 0,broadcast = 0 WHERE eid = ?";
-                                connection.query(query,[vm.eid], function(err){
-                                  exec('sudo virsh destroy vm_'+vm.account,function (error, stdout, stderr){
-                                    callback();
-                                  });
-                                });
-                              }); 
+                  exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-1000), function (error, pid, stderr){
+                    exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-2000), function (error, vncpid, stderr){
+                      exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-4000), function (error, boardpid, stderr){
+                        var query ="UPDATE back_img SET back_status = 0,last_date = 0 WHERE eid = ? AND oid = ?";
+                        connection.query(query,[vm.eid,oid], function(err){
+                          var query ="UPDATE user_xml SET oid = 0,user_port = 0,user_ip = 0,user_cdrom = 0,broadcast = 0 WHERE eid = ?";
+                          connection.query(query,[vm.eid], function(err){
+                            exec('sudo virsh destroy vm_'+vm.account,function (error, stdout, stderr){
+                              callback();
                             }); 
                           }); 
                         }); 

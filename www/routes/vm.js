@@ -101,6 +101,7 @@ exports.vmstatus_form = function(req, res){
       } else {
         VM.checkIp(req.session.user.id, ip, function(){
           VM.vmStatus(req.session.user.id, function(vmname, port, eid, broadcast,usb){
+console.log(usb);
             VM.checkCdrom(function(files){
               VM.usingCdrom(req.session.user.id, function(use){
                 res.render( 'vmstatus', {
