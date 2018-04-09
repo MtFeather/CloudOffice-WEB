@@ -19,7 +19,7 @@ exports.ori_add_form = function(req, res){
     VM.defaultVm(function(ram,disk){
       VM.checkUser(function(result){
         res.render( 'original_add', {
-          title : '環境建置',
+          title : '課程建置',
           user  : req.session.user,
           items : result,
           ram   : ram,
@@ -54,7 +54,7 @@ exports.ori_copy_form = function(req, res){
     VM.checkUser(function(result){
       VM.checkDepartment(function(dep){
         res.render( 'original_copy', {
-          title : '環境複製',
+          title : '課程複製',
           user  : req.session.user,
           items : result,
           dep   : dep
@@ -163,7 +163,7 @@ exports.department_form = function(req, res){
           VM.checkUser(function(user){
             VM.checkCdrom(function(files){
               res.render('department', {
-                title : '環境管理',
+                title : '課程管理',
                 user  : req.session.user,
                 items : result,
                 cdrom : files,
@@ -254,7 +254,7 @@ exports.department_show = function(req, res){
   } else {
     DM.departments_info(req.session.user.level, req.session.user.id, function(result){
         res.render('department_show', {
-        title : '環境資訊',
+        title : '課程資訊',
         user : req.session.user,
         items : result
         });
@@ -275,7 +275,7 @@ exports.hd_form = function(req, res){
   } else {
     DM.hd_form(req.session.user.level, req.session.user.id, function(result){
       res.render('hd_create', {
-        title : '員工環境建置',
+        title : '學生課程建置',
         user : req.session.user,
         items : result
       });
@@ -289,7 +289,7 @@ exports.hd_info = function(req, res){
   } else {
     DM.hd_info(req.session.user.level, req.session.user.id, function(result){
     res.render('hd_info', {
-      title : '員工環境管理',
+      title : '學生課程管理',
       user : req.session.user,
       items : result
     });
@@ -385,7 +385,7 @@ exports.hd_update = function(req, res){
           res.redirect('/');
         } else {
           res.render('hd_update', {
-            title : '員工環境建置',
+            title : '學生課程建置',
             user : req.session.user,
             items : result,
             hd_name : hd_name,

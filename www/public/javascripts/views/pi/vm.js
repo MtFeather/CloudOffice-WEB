@@ -62,7 +62,7 @@ $(document).ready(function(){
             },
 			success	: function(responseText, status, xhr, $form){
 				if (status == 'success') {
-                    vv.showAlert('建立成功', '原始碟已建立完成', 'original_add');
+                    vv.showAlert('建立成功', '課程已建立完成', 'original_add');
 					setTimeout(function(){ window.location.href = 'original_add'; }, 2000);
 				}
 			},
@@ -82,7 +82,7 @@ $(document).ready(function(){
                 },
                 success : function(responseText, status, xhr, $form){
                         if (status == 'success') {
-                                vv.showAlert('建立成功', '原始碟已建立完成', 'original_add');
+                                vv.showAlert('建立成功', '課程已建立完成', 'original_add');
                                 setTimeout(function(){ window.location.href = 'original_add'; }, 2000);
                         }
                 },
@@ -106,12 +106,12 @@ $(document).ready(function(){
                   if (vv.copyvalidateForm() == false){
                     return false;
                   } else {
-                    vv.showAlert('正在建立', '正在複製硬碟，請至<a href="department_show">環境資訊</a>查看', 'original_copy');
+                    vv.showAlert('正在建立', '正在複製硬碟，請至<a href="department_show">課程資訊</a>查看', 'original_copy');
                   }
                 },
                 //success : function(responseText, status, xhr, $form){
                 //        if (status == 'success') {
-                //                vv.showAlert('正在建立', '正在複製硬碟，請至<a href="department_show">環境資訊</a>查看', 'original_copy');
+                //                vv.showAlert('正在建立', '正在複製硬碟，請至<a href="department_show">課程資訊</a>查看', 'original_copy');
                 //        }
                 //},
                 error : function(e){
@@ -161,7 +161,7 @@ $(document).ready(function(){
                 },
                 success : function(responseText, status, xhr, $form){
                         if (status == 'success') {
-                                 vv.showAlert('建置成功', '成員成功加入研討會', 'hd_update?id='+$('#id').val()+'&oid=0');
+                                 vv.showAlert('建置成功', '學生成功加入課程', 'hd_update?id='+$('#id').val()+'&oid=0');
                                 setTimeout(function(){ window.location.href = 'hd_update?id='+$('#id').val()+'&oid=0'; }, 2000);
                         }
                 },
@@ -183,7 +183,7 @@ $(document).ready(function(){
                 success : function(responseText, status, xhr, $form){
                         if (status == 'success') {
 				$('#myModal').modal('hide');
-                                 vv.showAlert('修改成功', '研討會設定成功', 'department');
+                                 vv.showAlert('修改成功', '課程設定成功', 'department');
                         }
                 },
                 error : function(e){

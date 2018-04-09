@@ -27,7 +27,7 @@ exports.defaultVm = function(callback) {
 
 exports.checkUser = function(callback) {
   var connection = mysql.createConnection(db_option);
-  var query ="SELECT eid,name,CASE level WHEN 0 THEN '管理員' WHEN 1 THEN '主管' ELSE '員工' END 'lv' FROM empdata WHERE level < 2 ORDER BY level";
+  var query ="SELECT eid,name,CASE level WHEN 0 THEN '管理員' WHEN 1 THEN '教師' ELSE '學生' END 'lv' FROM empdata WHERE level < 2 ORDER BY level";
   connection.query(query, function(err, result){ 
     connection.end();
     callback(result);

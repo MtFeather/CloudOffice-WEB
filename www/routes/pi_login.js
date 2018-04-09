@@ -328,7 +328,7 @@ exports.login_form = function(req, res){
     } else if (req.cookies.account == undefined || req.cookies.passwd == undefined){
       AM.checkLogin(function(login){
         res.render('pi/', {
-          title: '歡迎來到雲端辦公室系統',
+          title: '歡迎來到雲端教室系統',
           items: result,
           login: login
         });
@@ -341,7 +341,7 @@ exports.login_form = function(req, res){
               res.clearCookie('account');
               res.clearCookie('passwd');
               res.render('pi/', {
-                title: '歡迎來到雲端辦公室系統',
+                title: '歡迎來到雲端教室系統',
                 items: result,
                 login: login
               });
@@ -351,7 +351,7 @@ exports.login_form = function(req, res){
             }
           } else {
             res.render('pi/', {
-              title: '歡迎來到雲端辦公室系統',
+              title: '歡迎來到雲端教室系統',
               items : result,
               login: login
             });
@@ -488,7 +488,7 @@ exports.deleteaccount = function(req, res){
 
 exports.userinfo = function(req, res){
   res.render( 'pi/userinfo', {
-    title : '會員資料',
+    title : '會員資料'
   });
 };
 
