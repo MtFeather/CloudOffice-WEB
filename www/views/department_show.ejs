@@ -27,7 +27,7 @@
       <tbody>
       <% items.forEach(function(rows) { %>
         <tr>
-          <td><%= rows.hd_name %></td>
+          <td><a href="#" data-toggle="popover" title="硬碟名稱" data-content="<%= rows.hd_path %>"><%= rows.hd_name %></a></td>
           <td><%= rows.name %></td>
           <td><%= rows.hd_size %>G</td>
           <td><%= rows.hd_cpu %>顆</td>
@@ -56,6 +56,9 @@
     <% include modals/confirm %>
 </div>
 <script>
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+  });
   function mySearch() {
     var input, filter, table, tr, td, i;
     input = document.getElementById("myInput");

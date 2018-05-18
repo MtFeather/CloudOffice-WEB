@@ -4,15 +4,16 @@
     <h5 id="sub1"></h5>
     <hr>
     <div id="account-form-container" class="col-md-6">
-      <form  id="account-form" class="form-signin" role="form" method="post">
       <a href='user'><button type="button" class="btn btn-default btn-md">&laquo;返回</button></a>
+      <div class="well">
+      <form  id="account-form" class="form-signin" role="form" method="post">
         <input type="hidden" name="id" value="<%= items[0].eid %>" id="userId"/>
         <div class="form-group">
           <label for="usr">帳號:</label>
-          <input id="user-tf" type="text" name="account" value="<%= items[0].account %>" class="form-control">
+            <input id="user-tf" type="text" name="account" value="<%= items[0].account %>" class="form-control">
         </div>
         <div class="form-group">
-          <label for="pwd">密碼:</label>
+          <label for="pwd">密碼:*如不需要變更密碼，請忽略填寫</label>
           <input id="pass-tf" type="password" name="passwd" value="" class="form-control">
         </div>
         <div class="form-group">
@@ -31,15 +32,15 @@
         </div>
         <div class="form-group">
           <label>身分:</label></br>
-        <select class="form-control" name="level" id="level">
-            <option value="0"<% if(items[0].level==0) {%> selected <% } %>>管理員</option>
-            <option value="1"<% if(items[0].level==1) {%> selected <% } %>>教師</option>
-            <option value="2"<% if(items[0].level==2) {%> selected <% } %>>學生</option>            
-          </select>
+              <select class="form-control" name="level" id="level">
+                <option value="0"<% if(items[0].level==0) {%> selected <% } %>>管理員</option>
+                <option value="1"<% if(items[0].level==1) {%> selected <% } %>>教師</option>
+                <option value="2"<% if(items[0].level==2) {%> selected <% } %>>學生</option>            
+              </select>
 	</div>
         <div class="form-group">
           <label>信箱:</label>
-          <input id="email-tf" type="text" name="email" value="<%= items[0].email %>" class="form-control"/>
+            <input id="email-tf" type="text" name="email" value="<%= items[0].email %>" class="form-control"/>
         </div>
         <hr>
         <div class="form-buttons pull-right">
@@ -48,6 +49,7 @@
         </div>
         <div class="clearfix"></div>
       </form>
+      </div>
     </div>
     <!-- display form errors in a custom modal window -->
     <% include modals/form-errors %>

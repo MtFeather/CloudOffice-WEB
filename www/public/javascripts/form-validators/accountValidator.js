@@ -61,7 +61,7 @@ AccountValidator.prototype.validateForm = function()
 	for (var i=0; i < this.controlGroups.length; i++) this.controlGroups[i].removeClass('error');
         if (this.validateName(this.formFields[2].val()) == false) {
                 this.controlGroups[0].addClass('error');
-                e.push('請輸入帳號，不可小於2個字元');
+                e.push('請輸入帳號，不可小於3個字元');
         }
         if (this.validateAccount(this.formFields[2].val()) == false) {
                 this.controlGroups[1].addClass('error');

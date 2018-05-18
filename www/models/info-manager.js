@@ -21,7 +21,7 @@ exports.showNews = function(callback){
 
 exports.showNew = function(id, callback){
   var connection = mysql.createConnection(db_option);
-  var query ="SELECT news.nid,news.subject,empdata.name,news.edit_date,news.post_date,news.content from news,empdata where news.eid = empdata.eid AND news.nid = ?";
+  var query ="SELECT news.nid,news.subject,empdata.name,empdata.account,news.edit_date,news.post_date,news.content FROM news,empdata WHERE news.eid = empdata.eid AND news.nid = ?";
   connection.query(query,[id], function(err, result){
     if(result.length==0) {
       connection.end();

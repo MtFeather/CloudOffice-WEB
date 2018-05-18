@@ -18,7 +18,6 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="noVNC/app/styles/auto.css">
   <link rel="stylesheet" href="/stylesheets/socketchet.css">
-  <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
   <!--
   <script type='text/javascript'
     src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script>
@@ -27,16 +26,21 @@
   <script src="app/webutil.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
-    var socket=io.connect(),//与服务器进行连接
-        button=document.getElementById('sendBtn');
-    function closechat() {
+      var socket=io.connect(),//与服务器进行连接
+          button=document.getElementById('sendBtn');
+      function closechat() {
           document.getElementById("wrapper").style.display = "none";
-    }
-    function openchat() {
-          document.getElementById("wrapper").style.display = "";
-    }
+      }
+      function openchat() {
+          var chat = document.getElementById("wrapper").style.display;
+          if (chat) {
+              document.getElementById("wrapper").style.display = "";
+          } else {
+              document.getElementById("wrapper").style.display = "none";
+          }
+      }
   </script>
-  <span class="openChat" style="cursor:pointer" onclick="openchat()"><i class="fa fa-commenting-o"></i></span>
+  <span class="openChat" style="cursor:pointer" onclick="openchat()"><i class="glyphicon glyphicon-comment"></i></span>
   <div id="noVNC_container" class="panel panel-primary">
     <div id="noVNC_status_bar" class="panel-heading" style="margin-top: 0px;">
       <table border=0 width="100%">

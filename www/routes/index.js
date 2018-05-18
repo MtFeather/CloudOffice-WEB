@@ -254,7 +254,7 @@ exports.news_update_submit = function(req, res){
 
 /***********************會員帳號管理***********************/
 exports.user = function(req, res){
-  if (req.session.user == null || req.session.user.level > 0){
+  if (req.session.user == null || req.session.user.level > 1){
 // if user is not logged-in redirect back to login page > 如果用戶沒有登入,就返回登入頁面//
     res.redirect('/');
   } else {
@@ -268,7 +268,7 @@ exports.user = function(req, res){
   }
 };
 exports.user_update_form = function(req, res){
- if (req.session.user == null || req.session.user.level > 0){
+ if (req.session.user == null || req.session.user.level > 1){
     res.redirect('/');
   } else {
     UM.showuser(req.query.id, function(result){
@@ -307,7 +307,7 @@ exports.user_update_submit = function(req, res){
 }
 
 exports.user_verify_form = function(req, res){
-   if (req.session.user == null || req.session.user.level > 0){
+   if (req.session.user == null || req.session.user.level > 1){
      res.redirect('/');
    } else {
      AM.verifyAccount(function(result){

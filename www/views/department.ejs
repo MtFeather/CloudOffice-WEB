@@ -105,7 +105,7 @@
           <% } %>
           </td>
           <td>
-            <% if(rows.user_port==0 || rows.hd_status=='0') { %>
+            <% if(rows.user_port==0 || rows.hd_status!='1') { %>
               未啟動
             <% } else { %>
               <a href="spice://<%= serverip %>:<%= rows.user_port %>"><%= rows.user_port %></a>

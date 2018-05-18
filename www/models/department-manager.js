@@ -31,7 +31,7 @@ exports.departments_maneger = function(level, id, callback){
 
 exports.dep_vmstatus = function(callback){
   var connection = mysql.createConnection(db_option);
-  var query ="SELECT user_xml.oid,ori_xml.eid,account,user_port,user_ip FROM empdata,ori_xml,user_xml WHERE ori_xml.eid=user_xml.eid AND empdata.eid=ori_xml.eid AND hd_status = 1";
+  var query ="SELECT user_xml.oid,ori_xml.eid,account,user_port,user_ip FROM empdata,ori_xml,user_xml WHERE ori_xml.eid=user_xml.eid AND empdata.eid=ori_xml.eid AND user_xml.user_port != 0";
   connection.query(query, function(err, vmstatus){
     async.eachSeries(vmstatus, function (vm, callback) {
       exec('sudo virsh list | grep vm_'+vm.account, function (error, stdout, stderr) {
@@ -44,11 +44,14 @@ exports.dep_vmstatus = function(callback){
                     exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-1000), function (error, pid, stderr){
                       exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-2000), function (error, vncpid, stderr){
                         exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+(vm.user_port-4000), function (error, boardpid, stderr){
-                          var query ="UPDATE ori_xml SET hd_status = 0, last_date = 0 WHERE eid = ? AND oid = ?";
+                          var query ="UPDATE ori_xml SET hd_status = 0, last_date = 0 WHERE eid = ? AND oid = ? AND hd_status = 1";
                           connection.query(query,[vm.eid,vm.oid], function(err){
-                            var query ="UPDATE user_xml SET oid = 0,user_port = 0,user_ip = 0,user_cdrom = 0,broadcast = 0 WHERE eid = ?";
-                            connection.query(query,[vm.eid], function(err){
-                              callback();
+                            var query ="UPDATE back_img SET back_status = 0, last_date = 0 WHERE eid = ? AND oid = ? AND back_status = 1";
+                            connection.query(query,[vm.eid,vm.oid], function(err){
+                              var query ="UPDATE user_xml SET oid = 0,user_port = 0,user_ip = 0,user_cdrom = 0,broadcast = 0 WHERE eid = ?";
+                              connection.query(query,[vm.eid], function(err){
+                                callback();
+                              });
                             });
                           });
                         });
@@ -110,7 +113,7 @@ exports.departments_start = function(oid, ip, callback){
                     <disk type=\'file\' device=\'disk\'>
                       <driver name=\'qemu\' type=\'qcow2\' cache=\'writeback\'/>
                       <source file=\'/vm_data/usb/`+vm.account+`.img\'/>
-                      <target dev=\'sda\' bus=\'ide\'/>
+                      <target dev=\'sda\' bus=\'usb\'/>
                     </disk>`);
                 } else {
                   newdata = newdata.replace('$usb', '');
