@@ -257,7 +257,7 @@ exports.openVm = function(id, path, boot, cdrom, ip, callback) {
               <disk type=\'file\' device=\'disk\'>
                 <driver name=\'qemu\' type=\'qcow2\' cache=\'writeback\'/>
                 <source file=\'/vm_data/usb/`+ori_data[0].account+`.img\'/>
-                <target dev=\'sda\' bus=\'ide\'/>
+                <target dev=\'sda\' bus=\'usb\'/>
               </disk>`);
             } else {
               newdata = newdata.replace('$usb', '');
@@ -336,7 +336,7 @@ exports.openVm = function(id, path, boot, cdrom, ip, callback) {
                 <disk type=\'file\' device=\'disk\'>
                   <driver name=\'qemu\' type=\'qcow2\' cache=\'writeback\'/>
                   <source file=\'/vm_data/usb/`+user_data[0].account+`.img\'/>
-                  <target dev=\'sda\' bus=\'ide\'/>
+                  <target dev=\'sda\' bus=\'usb\'/>
                 </disk>`);
               } else {
                 newdata = newdata.replace('$usb', '');
