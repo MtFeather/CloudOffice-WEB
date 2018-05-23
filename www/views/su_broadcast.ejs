@@ -34,48 +34,48 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="noVNC/app/styles/auto.css">
     <link rel="stylesheet" href="/stylesheets/socketchet.css">
-    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
      <!--
     <script type='text/javascript'
         src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script>
     -->
-        <script src="core/util.js"></script>
-        <script src="app/webutil.js"></script>
-<!--聊天室用-->
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
-	window.onload = function() {
-          var hichat = new HiChat();
-          hichat.init('(<%= user.account %>)<%= user.name %>');
+    <script src="core/util.js"></script>
+    <script src="app/webutil.js"></script>
+    <!--聊天室用-->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            var hichat = new HiChat();
+            hichat.init('(<%= user.account %>)<%= user.name %>');
         }
 	var socket=io.connect(),//与服务器进行连接
-		button=document.getElementById('sendBtn');
-	button.onclick=function(){
-		socket.emit('foo', 'hello');//发送一个名为foo的事件，并且传递一个字符串数据‘hello’
-	}
-
+            button=document.getElementById('sendBtn');
         function openNav() {
-          document.getElementById("myNav").style.width = "80%";
+            document.getElementById("myNav").style.width = "80%";
         }
 
         function closeNav() {
-          document.getElementById("myNav").style.width = "0%";
+            document.getElementById("myNav").style.width = "0%";
         }
-	function closechat() {
-	  document.getElementById("wrapper").style.display = "none";
-	}
+
+        function closechat() {
+            document.getElementById("wrapper").style.display = "none";
+        }
+
         function openchat() {
-          document.getElementById("wrapper").style.display = "";
+            var chat = document.getElementById("wrapper").style.display;
+            if (chat) {
+                document.getElementById("wrapper").style.display = "";
+            } else {
+                document.getElementById("wrapper").style.display = "none";
+            }
         }
-</script>
-<!---->
+    </script>
     <div id="myNav" class="overlay">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <div class="overlay-content">
         <div class="row">
           <div class="col-md-6">
-            <h2>主管廣播:</h2>
+            <h2>管理員廣播:</h2>
           </div>
         </div>
           <div class="col-md-12">
@@ -83,7 +83,7 @@
           </div>
         <div class="row">
           <div class="col-md-12">
-            <h2>請選擇要廣播的成員:</h2>
+            <h2>請選擇要廣播的學生:</h2>
           </div>
         </div>
         <% emp.forEach(function(rows) { %>
@@ -94,7 +94,7 @@
       </div>
     </div>
     <span style="font-size:30px;cursor:pointer" onclick="openNav()" class="openNav">&raquo;</span>
-    <span class="openChat" style="cursor:pointer" onclick="openchat()"><i class="fa fa-commenting-o"></i></span>
+    <span class="openChat" style="cursor:pointer" onclick="openchat()"><i class="glyphicon glyphicon-comment"></i></span>
     <div id="noVNC_container" class="panel panel-primary">
             <div id="noVNC_status_bar" class="panel-heading" style="margin-top: 0px;">
                 <table border=0 width="100%"><tr>

@@ -21,7 +21,7 @@ exports.main = function(req, res){
   } else {
     IM.showNews_limit(function(result){
     res.render( 'main', {
-      title : '歡迎來到研討會系統',
+      title : '歡迎來到雲端教室系統',
       user : req.session.user,
       items : result
     });
@@ -35,7 +35,7 @@ exports.login_form = function(req, res){
   } else if (req.cookies.account == undefined || req.cookies.passwd == undefined){
     AM.checkLogin(function(login){
       res.render('index', { 
-        title: '歡迎來到雲端辦公室系統',
+        title: '歡迎來到雲端教室系統',
         login: login
       });
     });
@@ -48,7 +48,7 @@ exports.login_form = function(req, res){
             res.clearCookie('account');
             res.clearCookie('passwd');
             res.render('index', {
-              title: '歡迎來到雲端辦公室系統',
+              title: '歡迎來到雲端教室系統',
               login: login
             });
           } else {
@@ -57,7 +57,7 @@ exports.login_form = function(req, res){
           }
         } else {
           res.render('index', { 
-            title: '歡迎來到雲端辦公室系統',
+            title: '歡迎來到雲端教室系統',
             login: login
           });
         }

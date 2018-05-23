@@ -28,14 +28,12 @@
     </table>
   </div>
   <div class="row">
-    <div class="col-md-4">
+    <div class="center-block">
+    <div class="col-md-4 col-md-offset-2">
       <canvas id="myMem" width="10" height="10"></canvas>
     </div>
     <div class="col-md-4">
       <canvas id="myHd" width="10" height="10"></canvas>
-    </div>
-    <div class="col-md-4">
-      <canvas id="myBd" width="10" height="10"></canvas>
     </div>
   </div>
 </div>
@@ -73,12 +71,12 @@ var myHd = new Chart(hd, {
     type: 'pie',
     data: {
         labels: [
-        "已使用(<%= Math.round((original_used/original_size)*100) %>%)",
-        "未使用(<%= Math.round(((original_size-original_used)/original_size)*100) %>%)",
+        "已使用(<%= Math.round((vm_data[2]/vm_data[1])*100) %>%)",
+        "未使用(<%= Math.round((vm_data[3]/vm_data[1])*100) %>%)",
         ],
         datasets: [
         {
-            data: [<%=  Math.round(original_used/1024/1024/1024) %>, <%= Math.round((original_size-original_used)/1024/1024/1024) %>],
+            data: [<%=  Math.round(vm_data[2]/1024/1024) %>, <%= Math.round(vm_data[3]/1024/1024) %>],
             backgroundColor: [
                 "#FF6384",
                 "#36A2EB",
@@ -92,35 +90,7 @@ var myHd = new Chart(hd, {
     options: {
         title: {
             display: true,
-            text: '原始碟容量(<%=  Math.round(original_size/1024/1024/1024) %>GB)'
-        }
-    }
-});
-var bd = document.getElementById("myBd");
-var myBd = new Chart(bd, {
-    type: 'pie',
-    data: {
-        labels: [
-        "已使用(<%=  Math.round((backing_used/backing_size)*100) %>%)",
-        "未使用(<%= Math.round(((backing_size-backing_used)/backing_size)*100) %>%)",
-        ],
-        datasets: [
-        {
-            data: [<%=  Math.round(backing_used/1024/1024/1024) %>, <%= Math.round((backing_size-backing_used)/1024/1024/1024) %>],
-            backgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-            ],
-            hoverBackgroundColor: [
-                "#FF6384",
-                "#36A2EB",
-            ]
-        }]
-    },
-    options: {
-        title: {
-            display: true,
-            text: '複製碟容量(<%=  Math.round(backing_size/1024/1024/1024) %>GB)'
+            text: '/vm_data容量(<%=  Math.round(vm_data[1]/1024/1024) %>GB)'
         }
     }
 });

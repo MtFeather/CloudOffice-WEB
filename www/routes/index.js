@@ -30,7 +30,7 @@ exports.main = function(req, res){
   } else {
     IM.showNews_limit(function(result){
     res.render( 'main', {
-      title : '歡迎來到雲端辦公室系統',
+      title : '歡迎來到雲端教室系統',
       user : req.session.user,
       items : result
     });
@@ -119,17 +119,15 @@ exports.system = function(req, res){
     si.cpu(function(cpu) {
       si.osInfo(function(os) {
         si.mem(function(mem) {
- 	  hdd(function(original_used, original_size, backing_used, backing_size) {;
+ 	  //hdd(function(original_used, original_size, backing_used, backing_size) {;
+ 	  exec('sudo df /vm_data | sed 1d', function(error, vm_data, stderr) {
             res.render( 'system', {
               title         : '系統資訊',
               user          : req.session.user,
               cpu           : cpu,
               os            : os,
               mem           : mem,
-              original_used : original_used,
-	      original_size : original_size,
-	      backing_used  : backing_used,
-	      backing_size  : backing_size
+              vm_data : vm_data.split(/\s+/)
             });
           });
         });
@@ -256,7 +254,7 @@ exports.news_update_submit = function(req, res){
 
 /***********************會員帳號管理***********************/
 exports.user = function(req, res){
-  if (req.session.user == null || req.session.user.level > 0){
+  if (req.session.user == null || req.session.user.level > 1){
 // if user is not logged-in redirect back to login page > 如果用戶沒有登入,就返回登入頁面//
     res.redirect('/');
   } else {
@@ -270,7 +268,7 @@ exports.user = function(req, res){
   }
 };
 exports.user_update_form = function(req, res){
- if (req.session.user == null || req.session.user.level > 0){
+ if (req.session.user == null || req.session.user.level > 1){
     res.redirect('/');
   } else {
     UM.showuser(req.query.id, function(result){
@@ -278,7 +276,7 @@ exports.user_update_form = function(req, res){
          res.redirect('error');
        } else {
          res.render('user_update', {
-           title : '修改員工資料',
+           title : '修改使用者資料',
            user : req.session.user,
            items : result
          });
@@ -309,7 +307,7 @@ exports.user_update_submit = function(req, res){
 }
 
 exports.user_verify_form = function(req, res){
-   if (req.session.user == null || req.session.user.level > 0){
+   if (req.session.user == null || req.session.user.level > 1){
      res.redirect('/');
    } else {
      AM.verifyAccount(function(result){
@@ -402,7 +400,7 @@ exports.error = function(req, res){
 };
 
 var hdd = function(callback) {
-  si.fsSize(function(hd) {
+/***  si.fsSize(function(hd) {
     for (var i in hd) {
       if (hd[i].mount == '/vm_data/images/original') {
         var original_used = hd[i].used;
@@ -414,4 +412,5 @@ var hdd = function(callback) {
     }
     callback(original_used, original_size, backing_used, backing_size);
   });
+***/
 }

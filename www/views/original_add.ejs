@@ -212,8 +212,8 @@ $(function(){
             <div class="panel-body">
               <div class="panel-body">
                 <div class="form-group">
-                  <label for="hdname">環境電腦名稱:</label>
-                  <input type="text" class="form-control input-sm" id="hdname-tf" name="hdname" placeholder="請輸入環境電腦名稱">
+                  <label for="hdname">課程電腦名稱:</label>
+                  <input type="text" class="form-control input-sm" id="hdname-tf" name="hdname" placeholder="請輸入課程電腦名稱">
                 </div>
               </div>
               <div class="panel panel-success">
@@ -242,7 +242,7 @@ $(function(){
               </div>
               <div class="panel-body">
                 <div class="form-group">
-                  <label for="hdname">環境擁有者:</label>
+                  <label for="hdname">課程擁有者:</label>
                   <% if(user.level == 0) {%>
                   <select class="form-control input-sm" name="owner">
                     <% items.forEach(function(rows) {%>
@@ -344,9 +344,9 @@ $(function(){
   <div id="Tradition" class="collapse">
   <form  class="form-horizontal" id="vm1-form" role="form" method="post">
     <div class="form-group">
-      <label class="control-label col-sm-2" for="hdname">環境電腦名稱:</label>
+      <label class="control-label col-sm-2" for="hdname">課程電腦名稱:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="hdname-tf1" name="hdname" placeholder="請輸入環境電腦名稱">
+        <input type="text" class="form-control" id="hdname-tf1" name="hdname" placeholder="請輸入課程電腦名稱">
       </div>
     </div>
     <div class="form-group">
@@ -395,7 +395,7 @@ $(function(){
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="owner">環境擁有者:</label>
+      <label class="control-label col-sm-2" for="owner">課程擁有者:</label>
       <div class="col-sm-2">
         <% if(user.level == 0) {%>
         <select class="form-control" name="owner">

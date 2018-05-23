@@ -13,26 +13,26 @@ $(document).ready(function(){
 
     $("#deleteverify").click(function(){
         if ($('input[name="eid"]:checkbox:checked').length == 0) {
-          Error('錯誤','請選擇要刪除的成員');
+          Error('錯誤','請選擇要刪除的帳號');
         } else {
           var val = [];
 	  $('input[name="eid"]:checkbox:checked').each(function(i){
             val[i] = $(this).val();
           });
-          Confirm('刪除','您確定要刪除選取的成員嗎?','刪除','btn-danger');
+          Confirm('刪除','您確定要刪除選取的帳號嗎?','刪除','btn-danger');
           $('.modal-confirm .submit').click(function(){ delverify(val); });
         }
     });
 
     $("#successverify").click(function(){
         if ($('input[name="eid"]:checkbox:checked').length == 0) {
-          Error('錯誤','請選擇要啟動的成員');
+          Error('錯誤','請選擇要啟動的帳號');
         } else {
           var val = [];
           $('input[name="eid"]:checkbox:checked').each(function(i){
             val[i] = $(this).val();
           });
-          Confirm('啟動','您確定要啟動選取的成員嗎?','啟動','btn-success');
+          Confirm('啟動','您確定要啟動選取的帳號嗎?','啟動','btn-success');
           $('.modal-confirm .submit').click(function(){ sucverify(val); });
         }
     });
@@ -45,7 +45,7 @@ function sucverify(id){
         data: { eid: id },
         success: function(data){
             $('.modal-confirm').modal('hide');
-            Alert('啟動成功','已將選取成員啟動');
+            Alert('啟動成功','已將選取的帳號啟動');
         },
         error: function(jqXHR){
             $('.modal-confirm').modal('hide');
@@ -61,7 +61,7 @@ function delverify(id){
         data: { eid: id },
         success: function(data){
             $('.modal-confirm').modal('hide');
-            Alert('刪除成功','已將選取成員刪除');
+            Alert('刪除成功','已將選取的帳號刪除');
         },
         error: function(jqXHR){
             $('.modal-confirm').modal('hide');
