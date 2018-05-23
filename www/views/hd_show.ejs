@@ -111,8 +111,8 @@
             <button type="button" class="btn btn-success" disabled>還原</button>
             <button type="button" class="btn btn-danger" disabled><span class="glyphicon glyphicon-trash"></span></button>
 	    <% } else{ %>
-            <button type="button" class="btn btn-success" onclick="reduction(<%= rows.eid %>)" data-tooltip="tooltip" title="將此學生電腦還原">還原</button>
-            <button type="button" class="btn btn-danger" onclick="deletevm(<%= rows.eid %>)" data-tooltip="tooltip" title="刪除此學生硬碟"><span class="glyphicon glyphicon-trash"></span></button>
+            <button type="button" class="btn btn-success" onclick="reduction(<%= rows.eid %>)" data-tooltip="tooltip" title="將此員工電腦還原">還原</button>
+            <button type="button" class="btn btn-danger" onclick="deletevm(<%= rows.eid %>)" data-tooltip="tooltip" title="刪除此員工硬碟"><span class="glyphicon glyphicon-trash"></span></button>
 	    <% } %>
           <% } %>
           </td>
@@ -125,7 +125,7 @@
   <% if(items.length == 0) { %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h3>此課程尚無學生，請至<a href="hd_create">學生課程建置</a>加入學生</h3>
+      <h3>此部門尚無員工，請至<a href="hd_create">員工部門建置</a>加入員工</h3>
     </div>
   </div>
   <% } %>

@@ -46,7 +46,7 @@ function VirtualValidator()
 
 VirtualValidator.prototype.deleteVm = function()
 {
-       this.deletevm('刪除學生', '您確定要刪除此學生嗎?','刪除');
+       this.deletevm('刪除員工', '您確定要刪除此員工嗎?','刪除');
 }
 
 VirtualValidator.prototype.showInvalidImage = function()
@@ -56,12 +56,12 @@ VirtualValidator.prototype.showInvalidImage = function()
 
 VirtualValidator.prototype.showImageNull = function()
 {
-       this.showError('錯誤', '請選擇一項課程硬碟。');
+       this.showError('錯誤', '請選擇一項部門硬碟。');
 }
 
 VirtualValidator.prototype.showUserNull = function()
 {
-       this.showError('錯誤', '請選擇要加入的學生。');
+       this.showError('錯誤', '請選擇要加入的員工。');
 }
 VirtualValidator.prototype.validateForm = function()
 {
@@ -69,7 +69,7 @@ VirtualValidator.prototype.validateForm = function()
 	for (var i=0; i < this.controlGroups.length; i++) this.controlGroups[i].removeClass('error');
     if ($('#hdname-tf').val() == '') {
         this.controlGroups[0].addClass('error');
-        e.push('請輸入課程電腦名稱');
+        e.push('請輸入部門電腦名稱');
     }
 	if ($('#hdsize').val() == '') {
 		this.controlGroups[1].addClass('error'); 
@@ -93,7 +93,7 @@ VirtualValidator.prototype.validateForm = function()
 VirtualValidator.prototype.validateForm1 = function()
 {
         if ($('#hdname-tf1').val() == ''){
-                this.showError('錯誤', '請輸入課程電腦名稱。');
+                this.showError('錯誤', '請輸入部門電腦名稱。');
                 return false;
         }       else{
                 return true;
@@ -106,11 +106,11 @@ VirtualValidator.prototype.copyvalidateForm = function()
         for (var i=0; i < this.copycontrolGroups.length; i++) this.copycontrolGroups[i].removeClass('error');
 	if ($('#hdname-tf').val() == '') {
         	this.copycontrolGroups[0].addClass('error');
-        	e.push('請輸入課程電腦名稱');
+        	e.push('請輸入部門電腦名稱');
 	}
         if ($('#dep-tf').val() == '') {
                 this.copycontrolGroups[1].addClass('error');
-                e.push('請選擇要複製的課程');
+                e.push('請選擇要複製的部門');
         }
 	if ($('#reduction').val() == '') {
                 this.controlGroups[2].addClass('error');

@@ -1,5 +1,5 @@
 function deletevm(eid){
-	this.confirmVm('刪除學生','您確定要刪除此學生嗎?','刪除');
+	this.confirmVm('刪除員工','您確定要刪除此員工嗎?','刪除');
 	$('.modal-confirm .submit').click(function(){ delvm(eid); });
 }
 
@@ -54,21 +54,21 @@ function closedep(eid){
 
 function allset(oid){
 	if($('#btn'+oid).val()=='start'){
-		this.confirmVm('全部開機','您確定要開啟此課程所有硬碟嗎？','確定');
+		this.confirmVm('全部開機','您確定要開啟此部門所有硬碟嗎？','確定');
 	        $('.modal-confirm .submit').click(function(){ startvm(oid); });
 	} else if($('#btn'+oid).val()=='close'){
-		this.confirmVm('全部關機','您確定要關閉此課程所有硬碟嗎？','確定');
+		this.confirmVm('全部關機','您確定要關閉此部門所有硬碟嗎？','確定');
                 $('.modal-confirm .submit').click(function(){ closevm(oid); });
 	}
 }
 
 function delori(oid){
-        this.confirmVm('刪除','您確定要刪除此課程？','刪除');
+        this.confirmVm('刪除','您確定要刪除此部門？','刪除');
         $('.modal-confirm .submit').click(function(){ deleteori(oid); });
 }
 
 function sync(oid){
-        this.confirmVm('同步','您確定要同步此課程？','同步');
+        this.confirmVm('同步','您確定要同步此部門？','同步');
         $('.modal-confirm .submit').click(function(){ syncori(oid); });
 }
 
@@ -111,7 +111,7 @@ this.confirmVm = function(x, e, c)
 this.successdel = function()
 {
         $('.modal-alert .modal-header h4').text('刪除成功');
-        $('.modal-alert .modal-body p').html('學生已刪除成功');
+        $('.modal-alert .modal-body p').html('員工已刪除成功');
         $('.modal-alert #ok').click(function(){window.location.reload();});
 	$('.modal-alert').modal('show');
 }
@@ -119,7 +119,7 @@ this.successdel = function()
 this.successred = function()
 {
         $('.modal-alert .modal-header h4').text('還原成功');
-        $('.modal-alert .modal-body p').html('此學生已還原成功');
+        $('.modal-alert .modal-body p').html('此員工已還原成功');
         $('.modal-alert #ok').click(function(){window.location.reload();});
 	$('.modal-alert').modal('show');
 }
@@ -227,7 +227,7 @@ function changeip(eid)
 this.successdelori = function()
 {
         $('.modal-alert .modal-header h4').text('刪除成功');
-        $('.modal-alert .modal-body p').html('課程已刪除成功');
+        $('.modal-alert .modal-body p').html('部門已刪除成功');
         $('.modal-alert #ok').click(function(){window.location.reload();});
         $('.modal-alert').modal('show');
 }
@@ -251,7 +251,7 @@ function syncori(oid)
 this.successsyncori = function()
 {
         $('.modal-alert .modal-header h4').text('正在同步');
-        $('.modal-alert .modal-body p').html('正在同步硬碟，請至<a href="department_show">課程資訊</a>查看');
+        $('.modal-alert .modal-body p').html('正在同步硬碟，請至<a href="department_show">部門資訊</a>查看');
         $('.modal-alert #ok').click(function(){window.location.reload();});
         $('.modal-alert').modal('show');
 }

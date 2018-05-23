@@ -6,7 +6,7 @@
     <div class="col-md-4 pull-right">
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-        <input type="text" class="form-control" id="myInput" onkeyup="mySearch()" placeholder="搜尋課程名稱/管理員">
+        <input type="text" class="form-control" id="myInput" onkeyup="mySearch()" placeholder="搜尋部門名稱/管理員">
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
           <th>
             <span class="glyphicon glyphicon-eye-open"></span>
           </th>
-          <th>課程名稱</th>
+          <th>部門名稱</th>
           <th>管理員</th>
           <th>預設開機</th>
           <th class="col-md-3">置換光碟</th>
@@ -45,7 +45,7 @@
           <% if (rows.hd_status > 1) { %>
             <%= rows.hd_name %>
           <% } else { %>
-            <a href="hd_show?id=<%= rows.oid %>" data-tooltip="tooltip" title="查看此學生狀態"><%= rows.hd_name %></a>
+            <a href="hd_show?id=<%= rows.oid %>" data-tooltip="tooltip" title="查看此員工狀態"><%= rows.hd_name %></a>
           <% } %>
           </td>
           <td><%= rows.name %></td>
@@ -132,12 +132,12 @@
                 <button type="button" class="btn btn-warning" onclick="closedep(<%= rows.eid %>)">關閉</button>
               <% } %>
 	      <div class="btn-group">
-	        <button type="button" class="btn btn-primary" id="btn<%= rows.oid %>" data-tooltip="tooltip" title="開啟/關閉全部學生電腦" value="start" onclick="allset(<%= rows.oid %>)">全部開機</button>
+	        <button type="button" class="btn btn-primary" id="btn<%= rows.oid %>" data-tooltip="tooltip" title="開啟/關閉全部員工電腦" value="start" onclick="allset(<%= rows.oid %>)">全部開機</button>
     	        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 	          <span class="caret"></span>
 	        </button>
 	        <ul class="dropdown-menu" role="menu" onChange="change(this.value)">
-      	          <li onclick="start(<%= rows.oid %>)"><a href="#" data-tooltip="tooltip" title="開啟此課程的學生">全部開機</a></li>
+      	          <li onclick="start(<%= rows.oid %>)"><a href="#" data-tooltip="tooltip" title="開啟此部門的員工">全部開機</a></li>
       	          <li onclick="stop(<%= rows.oid %>)"><a href="#">全部關機</a></li>
     	        </ul>
 	      </div>
@@ -146,8 +146,8 @@
 	      <button type="button" class="btn btn-warning" disabled><span class="icon-cloudaltsync"></span></button>
 	      <button type="button" class="btn btn-danger" disabled><span class="glyphicon glyphicon-trash"></span></button>
               <% } else { %>
-              <button type="button" class="btn btn-warning" data-tooltip="tooltip" title="同步：將原始硬碟複製給學生" onclick="sync(<%= rows.oid %>)"><span class="icon-cloudaltsync"></span></button>
-              <button type="button" class="btn btn-danger" onclick="delori(<%= rows.oid %>)" data-tooltip="tooltip" title="刪除：將此課程刪除"><span class="glyphicon glyphicon-trash"></span></button>
+              <button type="button" class="btn btn-warning" data-tooltip="tooltip" title="同步：將原始硬碟複製給員工" onclick="sync(<%= rows.oid %>)"><span class="icon-cloudaltsync"></span></button>
+              <button type="button" class="btn btn-danger" onclick="delori(<%= rows.oid %>)" data-tooltip="tooltip" title="刪除：將此部門刪除"><span class="glyphicon glyphicon-trash"></span></button>
               <% } %>
             <% } %>
 	  </td>
@@ -168,7 +168,7 @@
 	  <form  class="form-horizontal" id="department-form" action="department_setting" role="form" method="post">
     	    <div class="form-group">
 	      <input type="hidden" value="" id="oid" name="oid">
-	      <label class="control-label col-sm-4" for="hdname">課程電腦名稱:</label>
+	      <label class="control-label col-sm-4" for="hdname">部門電腦名稱:</label>
 	      <div class="col-sm-6">
 	        <input type="text" class="form-control" id="hdname-tf" name="hdname" value="">
 	      </div>
@@ -192,7 +192,7 @@
 	      </div>
 	    </div>
 	    <div class="form-group">
-	      <label class="control-label col-sm-4" for="owner">課程擁有者:</label>
+	      <label class="control-label col-sm-4" for="owner">部門擁有者:</label>
 	      <div class="col-sm-4">
 	        <% if(user.level == 0) {%>
 	        <select class="form-control" name="owner" id="owner">

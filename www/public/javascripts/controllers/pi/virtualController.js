@@ -44,8 +44,8 @@ function VirtualController()
 VirtualController.prototype.deleteVm = function(id)
 {
        	$('.modal-confirm').modal({ show : false, keyboard : true, backdrop : true });
-        $('.modal-confirm .modal-header h4').text('刪除學生');
-        $('.modal-confirm .modal-body p').html('您確定要刪除此學生嗎?');
+        $('.modal-confirm .modal-header h4').text('刪除員工');
+        $('.modal-confirm .modal-body p').html('您確定要刪除此員工嗎?');
  	$('.modal-confirm .cancel').html('取消');
         $('.modal-confirm .submit').html('刪除');
         $('.modal-confirm .submit').addClass('btn-danger');

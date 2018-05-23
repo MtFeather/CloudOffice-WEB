@@ -35,7 +35,7 @@ function VirtualValidator()
 
 VirtualValidator.prototype.deleteVm = function()
 {
-       this.deletevm('刪除學生', '您確定要刪除此學生嗎?','刪除');
+       this.deletevm('刪除員工', '您確定要刪除此員工嗎?','刪除');
 }
 
 VirtualValidator.prototype.showInvalidImage = function()
@@ -45,17 +45,17 @@ VirtualValidator.prototype.showInvalidImage = function()
 
 VirtualValidator.prototype.showImageNull = function()
 {
-       this.showErrors('錯誤', '請選擇一項課程硬碟。');
+       this.showErrors('錯誤', '請選擇一項部門硬碟。');
 }
 
 VirtualValidator.prototype.showUserNull = function()
 {
-       this.showErrors('錯誤', '請選擇要加入的學生。');
+       this.showErrors('錯誤', '請選擇要加入的員工。');
 }
 VirtualValidator.prototype.validateForm = function()
 {
 	if ($('#hdname-tf').val() == ''){
-		this.showErrors('錯誤', '請輸入課程電腦名稱。');
+		this.showErrors('錯誤', '請輸入部門電腦名稱。');
 		return false;
 	}	else{
 		return true;

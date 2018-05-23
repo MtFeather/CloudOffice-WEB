@@ -8,13 +8,13 @@
         <thead>
           <tr>
               <input type="hidden" name="id" value="<%= items[0].oid %>" />
-           <th class="col-md-2">課程名稱:</th>
+           <th class="col-md-2">部門名稱:</th>
            <th class="col-md-10"><div class="col-md-12"><%= items[0].hd_name %></div></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>目前擁有的學生:</td>
+            <td>目前擁有的員工:</td>
             <td>
               <% member.forEach(function(member) { %>
                 <div class="col-md-3">(<%= member.account %>)<%= member.name %></div>
@@ -22,11 +22,11 @@
             </td>
           </tr>
           <tr>
-            <td>選擇加入學生:</td>
+            <td>選擇加入員工:</td>
             <td>
               <div class="col-md-4">
                 <select class="form-control" name="oid" onchange="submit();">        
-                  <option value="0">全部學生</option>
+                  <option value="0">全部員工</option>
                   <% hd_name.forEach(function(hd_name) { %>
                   <option value="<%= hd_name.oid %>" <%=  hd_name.oid == nowoid ? "selected" : "" %> ><%= hd_name.hd_name %></option>
                   <% }) %>        
