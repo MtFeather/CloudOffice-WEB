@@ -113,7 +113,7 @@ exports.addNewAccount = function(newData, callback)
           connection.end();
           callback('email-taken');
         } else {
-          var query ="INSERT INTO empdata VALUES('',?,?,?,2,?,?,NOW(),'','0')";
+          var query ="INSERT INTO empdata (account, password, name, level, sex, email, join_time, verify) VALUES(?,?,?,2,?,?,NOW(),'0')";
           connection.query(query,[newData.account,newData.passwd,newData.name,newData.sex,newData.email], function(err, result){
             connection.end();
             callback(err);

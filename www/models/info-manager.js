@@ -44,8 +44,9 @@ exports.showNews_limit = function(callback){
 
 exports.addNews = function(newData, callback){
   var connection = mysql.createConnection(db_option);
-  var query ="INSERT INTO news VALUES('',?,?,?,NOW(),NOW())";
+  var query ="INSERT INTO news (eid, subject, content, post_date, edit_date) VALUES(?,?,?,NOW(),NOW())";
   connection.query(query,[newData.id,newData.subject,newData.content], function(err){
+    console.log(err);
     connection.end();
     callback(err);
   });

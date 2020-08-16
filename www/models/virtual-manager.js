@@ -97,7 +97,7 @@ exports.addNewOriginal = function(newData, callback) {
     var hdname = rows;
     var hdpath = rows;
     var connection = mysql.createConnection(db_option);
-    var query ="INSERT INTO ori_xml VALUES('',?,?,?,?,?,?,?,'0','0',NOW(),0)";
+    var query ="INSERT INTO ori_xml (hd_name, hd_path, eid, hd_size, hd_cpu, hd_ram, restore, hd_status, disable, create_date, last_date) VALUES(?,?,?,?,?,?,?,'0','0',NOW(),0)";
     connection.query(query,[newData.hdname,hdpath,newData.owner,newData.hdsize,newData.cpu,newData.ram,newData.reduction], function(err, result){
         exec('sudo qemu-img create -f qcow2 -o cluster_size=2M,preallocation=metadata,lazy_refcounts=on /vm_data/images/original/'+hdpath+'.img '+newData.hdsize+'G', function (error, stdout, stderr) {
           if (error) {
@@ -124,7 +124,7 @@ exports.copyOriginal = function(data, callback) {
   var query ="SELECT hd_path,hd_size,hd_cpu,hd_ram FROM ori_xml WHERE oid = ?";
   connection.query(query,[data.dep], function(err, result){
     validateImagepath(function(path){
-      var query ="INSERT INTO ori_xml VALUES('',?,?,?,?,?,?,?,'2','0',NOW(),'')";
+      var query ="INSERT INTO ori_xml (hd_name, hd_path, eid, hd_size, hd_cpu, hd_ram, restore, hd_status, disable, create_date, last_date) VALUES(?,?,?,?,?,?,?,'2','0',NOW(),'')";
       connection.query(query,[data.hdname,path,data.owner,result[0].hd_size,result[0].hd_cpu,result[0].hd_ram,data.reduction], function(err){
         exec('sudo rsync -a --bwlimit=204800 /vm_data/images/original/'+result[0].hd_path+'.img /vm_data/images/original/'+path+'.img', function (error, stdout, stderr) {
           if(error){

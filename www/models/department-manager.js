@@ -445,7 +445,7 @@ exports.createBacking = function(oid, user, callback){
         var query ="SELECT account FROM empdata WHERE eid = ?";
         connection.query(query,[user[i]], function(err, empdata){
           exec('sudo qemu-img create -f qcow2 -b /vm_data/images/original/'+path[0].hd_path+'.img /vm_data/images/backing/'+path[0].hd_path+'_'+empdata[0].account+'.img', function (error,stdout, stderr) {
-            var query ="INSERT INTO back_img VALUES('',?,?,0,NOW(),0)";
+            var query ="INSERT INTO back_img (eid, oid, back_status, create_date, last_date) VALUES(?,?,0,NOW(),0)";
             connection.query(query,[user[i],oid], function(err){
               if(i == user.length-1){
                 connection.end();
