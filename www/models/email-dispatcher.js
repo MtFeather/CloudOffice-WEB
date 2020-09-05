@@ -1,23 +1,25 @@
 var EM = {};
 var exec = require('child_process').exec;
+var nodemailer = require('nodemailer');
+
 module.exports = EM;
-EM.server = require("emailjs/email").server.connect(
-{
-	host 	    : process.env.EMAIL_HOST || 'smtp.gmail.com',
-	user 	    : process.env.EMAIL_USER || 'cloudoffice922@gmail.com',
-	password    : process.env.EMAIL_PASS || 'cloudoffice#nodejs',
-	ssl		    : true
+
+EM.server = nodemailer.createTransport({
+	service: 'gmail',
+ 	auth: {
+		user: 'cloudoffice922@gmail.com',
+		pass: 'cloudoffice#nodejs'
+	}
 });
 
 EM.dispatchResetPasswordLink = function(account, callback)
 {
     exec("ip route get 168.95.1.1 |awk '{print $7; exit}'", function (error,link, stderr) {
-	EM.server.send({
+	EM.server.sendMail({
 		from         : process.env.EMAIL_FROM || 'Cloud Office <cloudoffice922@gmail.com>',
 		to           : account[0].email,
 		subject      : '雲端辦公室系統',
-		text         : 'something went wrong... :(',
-		attachment   : EM.composeEmail(account, link)
+		html         : EM.composeEmail(account, link),
 	}, callback );
     });
 }
@@ -39,12 +41,11 @@ EM.composeEmail = function(o, link)
 EM.dispatchPiResetPasswordLink = function(account, callback)
 {
     exec("ip route get 168.95.1.1 |awk '{print $7; exit}'", function (error,link, stderr) {
-	EM.server.send({
+	EM.server.sendMail({
 		from         : process.env.EMAIL_FROM || 'Cloud Office <cloudoffice922@gmail.com>',
 		to           : account[0].email,
 		subject      : '雲端辦公室系統',
-		text         : 'something went wrong... :(',
-		attachment   : EM.composePiEmail(account, link)
+		html         : EM.composeEmail(account, link),
 	}, callback );
     });
 }

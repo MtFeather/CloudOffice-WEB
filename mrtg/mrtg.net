@@ -1,6 +1,6 @@
 #!/bin/bash
 #偵測流量的程式
-nip=eno1
+nip=enp0s3
 LANG=C
 nettemp=$( sar -n DEV | grep "$nip" | grep  -v 'Average' | tail -n 1 | awk '{print $5,$6}' )
 net1=$(echo ${nettemp} | awk '{print $1} ' )

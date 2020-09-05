@@ -1,1 +1,8 @@
+# npm
+www/node_modules
+www/package-lock.json
+*.log
+*.gz
+
+# web mrtg
 www/public/mrtg/

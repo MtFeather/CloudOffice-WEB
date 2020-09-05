@@ -124,20 +124,23 @@ exports.copyOriginal = function(data, callback) {
   var query ="SELECT hd_path,hd_size,hd_cpu,hd_ram FROM ori_xml WHERE oid = ?";
   connection.query(query,[data.dep], function(err, result){
     validateImagepath(function(path){
-      var query ="INSERT INTO ori_xml (hd_name, hd_path, eid, hd_size, hd_cpu, hd_ram, restore, hd_status, disable, create_date, last_date) VALUES(?,?,?,?,?,?,?,'2','0',NOW(),'')";
+      var query ="INSERT INTO ori_xml (hd_name, hd_path, eid, hd_size, hd_cpu, hd_ram, restore, hd_status, disable, create_date) VALUES(?,?,?,?,?,?,?,'2','0',NOW())";
       connection.query(query,[data.hdname,path,data.owner,result[0].hd_size,result[0].hd_cpu,result[0].hd_ram,data.reduction], function(err){
         exec('sudo rsync -a --bwlimit=204800 /vm_data/images/original/'+result[0].hd_path+'.img /vm_data/images/original/'+path+'.img', function (error, stdout, stderr) {
           if(error){
+            console.log(error);
             connection.end();
             callback(error);
           } else {
+	    console.log("qemu-img");
             exec('sudo qemu-img create -f qcow2 -b /vm_data/images/original/'+path+'.img /vm_data/images/original/'+path+'_1.img', function (error, stdout, stderr) {
               if(error){
                 connection.end();
                 callback(error);
               } else {
-                var query ="UPDATE ori_xml SET hd_status = 0 WHERE hd_path = ?";
+                var query = "UPDATE ori_xml SET hd_status = 0 WHERE hd_path = ?";
                 connection.query(query,[path], function(err){
+		  console.log("UPDATE ori_xml SET hd_status = 0 WHERE hd_path = ?");
                   connection.end();
                   callback(err);
                 });
@@ -242,7 +245,7 @@ exports.openVm = function(id, path, boot, cdrom, ip, callback) {
             newdata = newdata.replace('$cpu', ori_data[0].hd_cpu);
             if(boot=='cdrom'){
               newdata = newdata.replace('$boot', "<boot dev='cdrom'/>\n<boot dev='hd'/>");
-              newdata = newdata.replace('$cdrom', cdrom);
+              newdata = newdata.replace('$cdrom', "/vm_data/iso/"+cdrom);
             } else {
               newdata = newdata.replace('$boot', "<boot dev='hd'/>\n<boot dev='cdrom'/>");
               newdata = newdata.replace('$cdrom', '');
@@ -265,13 +268,13 @@ exports.openVm = function(id, path, boot, cdrom, ip, callback) {
             fs.writeFile('/vm_data/xml/original/vm_'+ori_data[0].account+'.xml', newdata,{'flags': 'w+'}, function(err){
               exec('sudo iptables -A INPUT -p tcp -m tcp -s '+ip+'/32 --dport '+port+' -j ACCEPT', function (error, stdout, stderr) {
                 exec('sudo iptables -A INPUT -p tcp -m tcp -s '+ip+'/32 --dport '+(port-1000)+' -j ACCEPT', function (error, stdout, stderr) {
-                  exec('sudo iptables -AI INPUT -p tcp -m tcp -s '+ip+'/32 --dport '+(port-2000)+' -j ACCEPT', function (error, stdout, stderr) {
-                    exec('sudo iptables -AI INPUT -p tcp -m tcp -s '+ip+'/32 --dport '+(port-3000)+' -j ACCEPT', function (error, stdout, stderr) {
+                  exec('sudo iptables -A INPUT -p tcp -m tcp -s '+ip+'/32 --dport '+(port-2000)+' -j ACCEPT', function (error, stdout, stderr) {
+                    exec('sudo iptables -A INPUT -p tcp -m tcp -s '+ip+'/32 --dport '+(port-3000)+' -j ACCEPT', function (error, stdout, stderr) {
                       if(ori_data[0].restore==1){
                         exec('sudo qemu-img create -f qcow2 -b /vm_data/images/original/'+ori_data[0].hd_path+'.img /vm_data/images/original/'+ori_data[0].hd_path+'_1.img', function (error,stdout, stderr) {
                           exec('sudo virsh create /vm_data/xml/original/vm_'+ori_data[0].account+'.xml',function (error, stdout, stderr){
                             exec('sudo /srv/cloudoffice/websockify/websockify.py '+(port-1000)+' localhost:'+port+' &');
-                            exec('sudo websockify '+(port-2000)+' localhost:'+(port-3000)+' > /dev/null &');
+                            exec('sudo /srv/cloudoffice/websockify/websockify.py '+(port-2000)+' localhost:'+(port-3000)+' &');
                             var query ="UPDATE ori_xml SET hd_status = 1,last_date = 0 WHERE oid = ?";
                             connection.query(query,[ori_data[0].oid],function(err){
                               var query ="UPDATE user_xml SET oid = ?, user_port = ?, user_ip = ?, user_cdrom = ? WHERE eid = ?";
@@ -285,7 +288,7 @@ exports.openVm = function(id, path, boot, cdrom, ip, callback) {
                       } else {
                         exec('sudo virsh create /vm_data/xml/original/vm_'+ori_data[0].account+'.xml',function (error, stdout, stderr){
                           exec('sudo /srv/cloudoffice/websockify/websockify.py '+(port-1000)+' localhost:'+port+' &');
-                          exec('sudo websockify '+(port-2000)+' localhost:'+(port-3000)+' > /dev/null &');
+                          exec('sudo /srv/cloudoffice/websockify/websockify.py '+(port-2000)+' localhost:'+(port-3000)+' &');
                           var query ="UPDATE ori_xml SET hd_status = 1,last_date = 0 WHERE oid = ?";
                           connection.query(query,[ori_data[0].oid],function(err){
                             var query ="UPDATE user_xml SET oid = ?, user_port = ?, user_ip = ?, user_cdrom = ? WHERE eid = ?";
@@ -321,7 +324,7 @@ exports.openVm = function(id, path, boot, cdrom, ip, callback) {
               newdata = newdata.replace('$cpu', ori_data[0].hd_cpu);
               if(boot=='cdrom'){
                 newdata = newdata.replace('$boot', "<boot dev='cdrom'/>\n<boot dev='hd'/>");
-                newdata = newdata.replace('$cdrom', cdrom);
+                newdata = newdata.replace('$cdrom', "/vm_data/iso/"+cdrom);
               } else {
                 newdata = newdata.replace('$boot', "<boot dev='hd'/>\n<boot dev='cdrom'/>");
                 newdata = newdata.replace('$cdrom', '');
@@ -350,7 +353,7 @@ exports.openVm = function(id, path, boot, cdrom, ip, callback) {
                           exec('sudo qemu-img create -f qcow2 -b /vm_data/images/original/'+ori_data[0].hd_path+'.img /vm_data/images/backing/'+ori_data[0].hd_path+'_'+user_data[0].account+'.img', function (error,stdout, stderr) {
                             exec('sudo virsh create /vm_data/xml/backing/vm_'+user_data[0].account+'.xml', function (error, stdout, stderr){
                               exec('sudo /srv/cloudoffice/websockify/websockify.py '+(port-1000)+' localhost:'+port+' &');
-                              exec('sudo websockify '+(port-2000)+' localhost:'+(port-3000)+' > /dev/null &');
+                              exec('sudo /srv/cloudoffice/websockify/websockify.py '+(port-2000)+' localhost:'+(port-3000)+' &');
                               var query ="UPDATE back_img SET back_status = 1,last_date = 0 WHERE oid = ? AND eid = ?";
                               connection.query(query,[ori_data[0].oid,id],function(err){
                                 var query ="UPDATE user_xml SET oid = ?, user_port = ?, user_ip = ?, user_cdrom = ? WHERE eid = ?";
@@ -364,7 +367,7 @@ exports.openVm = function(id, path, boot, cdrom, ip, callback) {
                         } else {
                           exec('sudo virsh create /vm_data/xml/backing/vm_'+user_data[0].account+'.xml', function (error, stdout, stderr){
                             exec('sudo /srv/cloudoffice/websockify/websockify.py '+(port-1000)+' localhost:'+port+' &');
-                            exec('sudo websockify '+(port-2000)+' localhost:'+(port-3000)+' > /dev/null &');
+                            exec('sudo /srv/cloudoffice/websockify/websockify.py '+(port-2000)+' localhost:'+(port-3000)+' &');
                             var query ="UPDATE back_img SET back_status = 1,last_date = 0 WHERE oid = ? AND eid = ?";
                             connection.query(query,[ori_data[0].oid,id],function(err){
                               var query ="UPDATE user_xml SET oid = ?, user_port = ?, user_ip = ?, user_cdrom = ? WHERE eid = ?";
@@ -500,7 +503,7 @@ exports.broadcast_change = function(eid, port, callback){
   var query ="SELECT user_port FROM user_xml WHERE eid = ?";
   connection.query(query,[eid], function(err,result){
     exec('sudo sh /srv/cloudoffice/script/delwebsock.sh '+port, function (error, pid, stderr){
-      exec('sudo websockify '+port+' localhost:'+(result[0].user_port-3000)+' > /dev/null &');
+      exec('sudo /srv/cloudoffice/websockify/websockify.py '+port+' localhost:'+(result[0].user_port-3000)+' > /dev/null &');
       connection.end();
       callback();
     });
@@ -521,7 +524,7 @@ exports.broadcast_on = function(id, callback){
   var query ="SELECT user_port FROM user_xml WHERE eid = ?";
   connection.query(query,[id], function(err,result){
     exec('sudo iptables -A INPUT -p tcp -m tcp --dport '+(result[0].user_port-4000)+' -j ACCEPT', function () {
-      exec('sudo websockify '+(result[0].user_port-4000)+' localhost:'+(result[0].user_port-3000)+' > /dev/null &');
+      exec('sudo /srv/cloudoffice/websockify/websockify.py '+(result[0].user_port-4000)+' localhost:'+(result[0].user_port-3000)+' > /dev/null &');
       var query ="UPDATE user_xml SET broadcast = 1 WHERE eid = ?";
       connection.query(query,[id], function(){
         connection.end();
