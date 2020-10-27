@@ -22,7 +22,7 @@
     "random-mac": "0.0.4",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.3.0",
-    "systeminformation": "^3.13.0",
+    "systeminformation": "^4.27.11",
     "thread-sleep": "^2.2.0"
   }
 }
